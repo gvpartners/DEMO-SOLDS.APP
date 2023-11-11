@@ -9,7 +9,6 @@ namespace DEMO_SOLDS.APP.Services
 {
     public class CustomerService
     {
-        //Miguel es tu papi el sabe
         private readonly IConfiguration _configuration;
         private readonly AppDbContext _context;
 
