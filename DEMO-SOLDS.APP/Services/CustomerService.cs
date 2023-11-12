@@ -29,19 +29,26 @@ namespace DEMO_SOLDS.APP.Services
 
         public Customers CreateCustomer(string? identificationType, string? identificationInfo, string? customerName)
         {
-            var newCustomer = new Customers
+            var existCustomer = _context.Customers.FirstOrDefault(x => x.IdentificationInfo == identificationInfo);
+            if (existCustomer == null)
             {
-                Id = Guid.NewGuid(),
-                CustomerName = customerName,
-                IdentificationType = identificationType,
-                IdentificationInfo = identificationInfo,
-                IsDeleted = false
-            };
+                var newCustomer = new Customers
+                {
+                    Id = Guid.NewGuid(),
+                    CustomerName = customerName,
+                    IdentificationType = identificationType,
+                    IdentificationInfo = identificationInfo,
+                    IsDeleted = false
+                };
 
-            _context.Customers.Add(newCustomer);
-            _context.SaveChanges();
+                _context.Customers.Add(newCustomer);
+                _context.SaveChanges();
 
-            return newCustomer;
+                return newCustomer;
+            }
+            
+            return new Customers();
+
         }
 
         public Customers UpdateCustomer(Guid customerId, string? identificationType, string? identificationInfo, string? customerName)
