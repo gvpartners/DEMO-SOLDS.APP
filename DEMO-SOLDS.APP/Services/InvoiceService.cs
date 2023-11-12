@@ -8,6 +8,7 @@ using Microsoft.EntityFrameworkCore.Infrastructure;
 using System.Web.Http.Results;
 using ClosedXML.Excel;
 using System.Linq;
+using DocumentFormat.OpenXml.Math;
 
 namespace DEMO_SOLDS.APP.Services
 {
@@ -205,7 +206,20 @@ namespace DEMO_SOLDS.APP.Services
 
             return invoiceById;
         }
+        public void CreateCustomer(AuxInvoiceModel obj)
+        {
+            var newCustomer = new Customers
+            {
+                Id = Guid.NewGuid(),
+                CustomerName = obj.IdentificationInfo,
+                IdentificationType = obj.IdentificationType,
+                IdentificationInfo = obj.DocumentInfo,
+                IsDeleted = false
+            };
 
+            _context.Customers.Add(newCustomer);
+            _context.SaveChanges();
+        }
         public string CreateInvoice(AuxInvoiceModel obj)
         {
             var user = _context.AspNetUsers.SingleOrDefault(x => x.Email == obj.CreatedBy);
@@ -214,6 +228,11 @@ namespace DEMO_SOLDS.APP.Services
             .Select(i => i.InvoiceCode)            
             .FirstOrDefault()??"";
 
+            var existCustomer = _context.Customers.FirstOrDefault(x => x.IdentificationInfo == obj.DocumentInfo);
+            if (existCustomer == null)
+            {
+                CreateCustomer(obj);
+            }
             // Extract the numeric part and increment it
             int nextInvoiceNumber = 1;
             if (!string.IsNullOrEmpty(latestInvoiceNumber))
