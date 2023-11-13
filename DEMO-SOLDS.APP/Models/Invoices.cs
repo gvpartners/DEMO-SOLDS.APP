@@ -42,8 +42,6 @@ namespace DEMO_SOLDS.APP.Models
         public decimal Subtotal { get; set; }
         public decimal IgvRate { get; set; }
         public decimal TotalInvoice { get; set; }
-        public decimal TotalFletesPrice { get; set; }
-        public decimal TotalWithFletes { get; set; }
         public string? IsParihuelaNeeded { get; set; }
         public int CantParihuela { get; set; }
         public int CostParihuela { get; set; }
@@ -78,8 +76,6 @@ namespace DEMO_SOLDS.APP.Models
         public decimal Subtotal { get; set; }
         public decimal IgvRate { get; set; }
         public decimal TotalInvoice { get; set; }
-        public decimal TotalFletesPrice { get; set; }
-        public decimal TotalWithFletes { get; set; }
         public string? CreatedBy { get; set; }
         public DateTime CreatedOn { get; set; }
         public string? LastUpdatedBy { get; set; }
@@ -122,8 +118,6 @@ namespace DEMO_SOLDS.APP.Models
         public decimal Subtotal { get; set; }
         public decimal IgvRate { get; set; }
         public decimal TotalInvoice { get; set; }
-        public decimal TotalFletesPrice { get; set; }
-        public decimal TotalWithFletes { get; set; }
         public string? CreatedBy { get; set; }
         public DateTime CreatedOn { get; set; }
         public string? LastUpdatedBy { get; set; }

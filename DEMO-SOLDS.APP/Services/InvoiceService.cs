@@ -85,8 +85,6 @@ namespace DEMO_SOLDS.APP.Services
                     Subtotal = i.Subtotal,
                     IgvRate = i.IgvRate,
                     TotalInvoice = i.TotalInvoice,
-                    TotalFletesPrice = i.TotalFletesPrice,
-                    TotalWithFletes = i.TotalWithFletes,
                     CreatedBy = i.CreatedBy,
                     CreatedOn = i.CreatedOn,
                     LastUpdatedBy = i.LastUpdatedBy,
@@ -135,8 +133,6 @@ namespace DEMO_SOLDS.APP.Services
                     Subtotal = i.Subtotal,
                     IgvRate = i.IgvRate,
                     TotalInvoice = i.TotalInvoice,
-                    TotalFletesPrice = i.TotalFletesPrice,
-                    TotalWithFletes = i.TotalWithFletes,
                     CreatedBy = i.CreatedBy,
                     CreatedOn = i.CreatedOn,
                     LastUpdatedBy = i.LastUpdatedBy,
@@ -161,11 +157,13 @@ namespace DEMO_SOLDS.APP.Services
             var i = _context.Invoices
                 .Where(u => u.IsDeleted != true && u.Id == Id)
                 ?.FirstOrDefault();
-
+            var userIdToPrefixMap = _context.AspNetUsers
+                .Where(u => u.IsDeleted != true)
+                .ToDictionary(u => u.Id, u => new { Prefix = u.Prefix, Name = u.Name, FirstLastName = u.FirstLastName });
             InvoiceModel invoiceById = new InvoiceModel
             {
                 Id = i.Id,
-                InvoiceCode = i.InvoiceCode,
+                InvoiceCode = "COT-" + userIdToPrefixMap[i.UserId].Prefix + i.InvoiceCode.PadLeft(6, '0'),
                 IdentificationType = i.IdentificationType,
                 DocumentInfo = i.DocumentInfo,
                 IdentificationInfo = i.IdentificationInfo,
@@ -185,8 +183,6 @@ namespace DEMO_SOLDS.APP.Services
                 Subtotal = i.Subtotal,
                 IgvRate = i.IgvRate,
                 TotalInvoice = i.TotalInvoice,
-                TotalFletesPrice = i.TotalFletesPrice,
-                TotalWithFletes = i.TotalWithFletes,
                 CreatedBy = i.CreatedBy,
                 CreatedOn = i.CreatedOn,
                 LastUpdatedBy = i.LastUpdatedBy,
@@ -264,8 +260,6 @@ namespace DEMO_SOLDS.APP.Services
                     Subtotal = obj.Subtotal,
                     IgvRate = obj.IgvRate,
                     TotalInvoice = obj.TotalInvoice,
-                    TotalFletesPrice = obj.TotalFletesPrice,
-                    TotalWithFletes = obj.TotalWithFletes,
                     CreatedBy = obj.CreatedBy,
                     CreatedOn = DateTime.UtcNow,
                     LastUpdatedBy = obj.CreatedBy,
@@ -314,9 +308,7 @@ namespace DEMO_SOLDS.APP.Services
                 invoice.TotalWeight = obj.TotalWeight;
                 invoice.Subtotal = obj.Subtotal;
                 invoice.IgvRate = obj.IgvRate;
-                invoice.TotalInvoice = obj.TotalInvoice;
-                invoice.TotalFletesPrice = obj.TotalFletesPrice;
-                invoice.TotalWithFletes = obj.TotalWithFletes;                
+                invoice.TotalInvoice = obj.TotalInvoice;              
                 invoice.LastUpdatedBy = obj.CreatedBy;
                 invoice.LastUpdatedOn = DateTime.UtcNow;
                 invoice.IsParihuelaNeeded = obj.IsParihuelaNeeded;

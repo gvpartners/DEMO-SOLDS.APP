@@ -81,7 +81,7 @@ namespace DEMO_SOLDS.APP.Controllers
                     int row = 3;
                     foreach (var invoice in data)
                     {
-                        var total = invoice.TotalWithFletes > invoice.TotalInvoice ? invoice.TotalWithFletes : invoice.TotalInvoice;
+                        var total = invoice.TotalInvoice;
                         string formattedValue = string.Format("S/.{0:n}", total);
                         worksheet.Cell(row, 2).Value = TimeZoneInfo.ConvertTimeFromUtc(invoice.CreatedOn, TimeZoneInfo.FindSystemTimeZoneById("SA Pacific Standard Time")).ToString("yyyy-MM-dd HH:mm:ss");
                         worksheet.Cell(row, 3).Value = "COT-" + userIdToPrefixMap[invoice.UserId].Prefix + invoice?.InvoiceCode?.PadLeft(6, '0');
