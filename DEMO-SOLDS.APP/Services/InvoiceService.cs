@@ -145,7 +145,7 @@ namespace DEMO_SOLDS.APP.Services
                     UnitPiece = i.UnitPiece,
                     Contact = i.Contact,
                     UserId = i.UserId,
-                    CantParihuela= i.CantParihuela,
+                    CantParihuela= i.IsParihuelaNeeded == "No" ? 0: i.CantParihuela,
                 })
                 .ToList();
 
@@ -190,9 +190,9 @@ namespace DEMO_SOLDS.APP.Services
                 StatusOrder = i.StatusOrder,
                 StatusName = i.StatusName,
                 IsParihuelaNeeded= i.IsParihuelaNeeded ?? "No",
-                CantParihuela= i.CantParihuela == null? 0: i.CantParihuela,
-                CostParihuela= i.CostParihuela == null ? 0 : i.CostParihuela,
-                TotalPriceParihuela= i.TotalPriceParihuela == null ? 0 : i.TotalPriceParihuela,
+                CantParihuela= i.IsParihuelaNeeded=="No" ? 0 : i.CantParihuela,
+                CostParihuela= i.IsParihuelaNeeded == "No" ? 0 : i.CostParihuela,
+                TotalPriceParihuela= i.IsParihuelaNeeded == "No" ? 0 : i.TotalPriceParihuela,
                 Address = i.Address,
                 TotalOfPieces = i.TotalOfPieces,
                 UnitPiece = i.UnitPiece,
