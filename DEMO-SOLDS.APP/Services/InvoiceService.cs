@@ -216,13 +216,79 @@ namespace DEMO_SOLDS.APP.Services
             _context.Customers.Add(newCustomer);
             _context.SaveChanges();
         }
+        public void DuplicateInvoice(Guid InvoiceId)
+        {
+            var obj = _context.Invoices.FirstOrDefault(x=>x.Id== InvoiceId);
+            if (obj != null)
+            {
+                var user = _context.AspNetUsers.SingleOrDefault(x => x.Email == obj.CreatedBy);
+
+                string latestInvoiceNumber = _context.Invoices
+                .OrderByDescending(i => i.CreatedOn)
+                .Select(i => i.InvoiceCode)
+                .FirstOrDefault() ?? string.Empty;
+                int nextInvoiceNumber = 1;
+                if (!string.IsNullOrEmpty(latestInvoiceNumber))
+                {
+                    nextInvoiceNumber = int.Parse(latestInvoiceNumber) + 1;
+                }
+                if (user != null)
+                {
+                    Invoices newInvoice = new Invoices
+                    {
+                        Id = Guid.NewGuid(),
+                        InvoiceCode = nextInvoiceNumber.ToString(),
+                        IdentificationType = obj.IdentificationType,
+                        DocumentInfo = obj.DocumentInfo,
+                        IdentificationInfo = obj.IdentificationInfo,
+                        Telephone = obj.Telephone,
+                        Email = obj.Email,
+                        SelectedCategory = obj.SelectedCategory,
+                        SelectedMeasures = obj.SelectedMeasures,
+                        MeasureQuantities = obj.MeasureQuantities,
+                        DeliveryType = obj.DeliveryType,
+                        SelectedDistrict = obj.SelectedDistrict,
+                        Truck20TN = obj.Truck20TN,
+                        Truck32TN = obj.Truck32TN,
+                        Truck9TN = obj.Truck9TN,
+                        ProductsList = obj.ProductsList,
+                        FleteList = obj.FleteList,
+                        TotalWeight = obj.TotalWeight,
+                        Subtotal = obj.Subtotal,
+                        IgvRate = obj.IgvRate,
+                        TotalInvoice = obj.TotalInvoice,
+                        CreatedBy = obj.CreatedBy,
+                        CreatedOn = DateTime.UtcNow,
+                        LastUpdatedBy = obj.CreatedBy,
+                        LastUpdatedOn = DateTime.UtcNow,
+                        StatusOrder = 1,
+                        StatusName = "En progreso",
+                        IsDeleted = false,
+                        IsParihuelaNeeded = obj.IsParihuelaNeeded,
+                        CantParihuela = obj.CantParihuela,
+                        CostParihuela = obj.CostParihuela,
+                        TotalPriceParihuela = obj.TotalPriceParihuela,
+                        Address = obj.Address,
+                        Employee = obj.UserId.ToString(),
+                        TotalOfPieces = obj.TotalOfPieces,
+                        UnitPiece = obj.UnitPiece,
+                        Contact = obj.Contact,
+                        UserId = obj.UserId,
+                    };
+                    _context.Add(newInvoice);
+                    _context.SaveChanges();
+                }
+            }
+
+        }
         public string CreateInvoice(AuxInvoiceModel obj)
         {
             var user = _context.AspNetUsers.SingleOrDefault(x => x.Email == obj.CreatedBy);
+
             string latestInvoiceNumber = _context.Invoices
             .OrderByDescending(i => i.CreatedOn)
             .Select(i => i.InvoiceCode)            
-            .FirstOrDefault()??"";
+            .FirstOrDefault()??string.Empty;
 
             var existCustomer = _context.Customers.FirstOrDefault(x => x.IdentificationInfo == obj.DocumentInfo);
             if (existCustomer == null)
