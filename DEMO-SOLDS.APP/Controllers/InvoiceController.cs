@@ -261,6 +261,22 @@ namespace DEMO_SOLDS.APP.Controllers
                 return BadRequest(ex.Message);
             }
         }
-
+        [HttpGet("SummaryInfo")]
+        public async Task<ActionResult<dynamic>> SummaryInfo()
+        {
+            dynamic response;
+            return await Task.Run(() =>
+            {
+                try
+                {
+                    response = _invoiceService.SummaryInfo();
+                }
+                catch (Exception ex)
+                {
+                    return BadRequest(ex.Message);
+                }
+                return Ok(response);
+            });
+        }
     }
 }

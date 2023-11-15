@@ -9,6 +9,7 @@ using System.Web.Http.Results;
 using ClosedXML.Excel;
 using System.Linq;
 using DocumentFormat.OpenXml.Math;
+using DocumentFormat.OpenXml.Bibliography;
 
 namespace DEMO_SOLDS.APP.Services
 {
@@ -218,7 +219,7 @@ namespace DEMO_SOLDS.APP.Services
         }
         public void DuplicateInvoice(Guid InvoiceId)
         {
-            var obj = _context.Invoices.FirstOrDefault(x=>x.Id== InvoiceId);
+            var obj = _context.Invoices.FirstOrDefault(x => x.Id == InvoiceId);
             if (obj != null)
             {
                 var user = _context.AspNetUsers.SingleOrDefault(x => x.Email == obj.CreatedBy);
@@ -432,6 +433,68 @@ namespace DEMO_SOLDS.APP.Services
 
             return "Ok";
         }
+
+        public dynamic SummaryInfo()
+        {
+            DateTime actualDay = DateTime.UtcNow;
+            decimal monthGoal = 3200000;
+
+            var data = _context.Invoices
+                .Where(x => !x.IsDeleted && x.StatusOrder == 2);
+
+            // Obtener un arreglo de precios facturados de cada mes
+            decimal[] monthlyPrices = new decimal[12];
+            decimal[] monthlyPricesLastYear = new decimal[12];
+
+            foreach (var invoice in data.Where(u => u.CreatedOn.Year == actualDay.Year || u.CreatedOn.Year == actualDay.Year - 1))
+            {
+                int monthIndex = invoice.CreatedOn.Month - 1; // Restar 1 porque los índices de arreglo comienzan en 0
+                decimal totalInvoice = invoice.TotalInvoice;
+
+                if (invoice.CreatedOn.Year == actualDay.Year)
+                    monthlyPrices[monthIndex] += totalInvoice;
+                else if (invoice.CreatedOn.Year == actualDay.Year - 1)
+                    monthlyPricesLastYear[monthIndex] += totalInvoice;
+            }
+
+            int numberOfInvoicesToday = data.Count(u => u.CreatedOn.Date == actualDay.Date);
+            int numberOfInvoicesMonthly = data.Count(u => u.CreatedOn.Month == actualDay.Month);
+
+            decimal totalToday = data
+                .Where(u => u.CreatedOn.Date == actualDay.Date)
+                .Sum(a => a.TotalInvoice);
+
+            decimal totalMonth = monthlyPrices.Sum();
+
+            var auxData = data.Where(u => u.CreatedOn.Month == actualDay.Month).ToList();
+            var bloquesPercentage = CalculateCategoryPercentage(auxData, "BLOQUES", numberOfInvoicesMonthly);
+            var adokingPercentage = CalculateCategoryPercentage(auxData, "ADO", numberOfInvoicesMonthly);
+            var grassMichiPercentage = CalculateCategoryPercentage(auxData, "GR", numberOfInvoicesMonthly);
+            var enchapePercentage = CalculateCategoryPercentage(auxData, "ENCHAPE", numberOfInvoicesMonthly);
+            var aisladoresPercentage = CalculateCategoryPercentage(auxData, "AISLADORES", numberOfInvoicesMonthly);
+
+            return new
+            {
+                ActualDay = actualDay,
+                MonthGoal = monthGoal,
+                NumberOfInvoicesToday = numberOfInvoicesToday,
+                NumberOfInvoicesMonthly = numberOfInvoicesMonthly,
+                TotalToday = totalToday,
+                TotalMonth = totalMonth,
+                PercentageTotalMonth = (totalMonth / monthGoal) * 100,
+                MonthlyPrices = monthlyPrices,
+                MonthlyPricesLastYear = monthlyPricesLastYear,
+                PercentageProducts = new[] { bloquesPercentage, adokingPercentage, grassMichiPercentage, enchapePercentage, aisladoresPercentage }
+            };
+        }
+
+        private decimal CalculateCategoryPercentage(List<Invoices> data, string category, int totalInvoices)
+        {
+            return (decimal)data.Count(x => x.SelectedCategory.Contains(category)) / totalInvoices;
+        }
+
+
+
 
 
     }
