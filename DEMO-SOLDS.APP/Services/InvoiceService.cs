@@ -484,7 +484,7 @@ namespace DEMO_SOLDS.APP.Services
                 PercentageTotalMonth = (totalMonth / monthGoal) * 100,
                 MonthlyPrices = monthlyPrices,
                 MonthlyPricesLastYear = monthlyPricesLastYear,
-                PercentageProducts = new[] { bloquesPercentage, adokingPercentage, grassMichiPercentage, enchapePercentage, aisladoresPercentage }
+                PercentageProducts = new[] { bloquesPercentage * 100, adokingPercentage * 100, grassMichiPercentage * 100,enchapePercentage * 100, aisladoresPercentage * 100 }
             };
         }
 
