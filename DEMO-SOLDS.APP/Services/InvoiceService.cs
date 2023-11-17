@@ -67,42 +67,49 @@ namespace DEMO_SOLDS.APP.Services
         }
         public List<InvoiceModel> GetFilterDataForExcel(ExcelFilters obj)
         {
-            obj.EndDate = obj.EndDate?.AddDays(+1);
-            var invoicesList = _context.Invoices
-                .Where(u => !u.IsDeleted && u.CreatedOn >= obj.StartDate && u.CreatedOn <= obj.EndDate)
-                .OrderByDescending(u => u.CreatedOn)
-                .Select(i => new InvoiceModel
-                {
-                    InvoiceCode = i.InvoiceCode,
-                    IdentificationType = i.IdentificationType,
-                    DocumentInfo = i.DocumentInfo,
-                    IdentificationInfo = i.IdentificationInfo,
-                    Telephone = i.Telephone,
-                    Email = i.Email,
-                    SelectedCategory = i.SelectedCategory,
-                    DeliveryType = i.DeliveryType,
-                    SelectedDistrict = i.SelectedDistrict,
-                    TotalWeight = i.TotalWeight,
-                    Subtotal = i.Subtotal,
-                    IgvRate = i.IgvRate,
-                    TotalInvoice = i.TotalInvoice,
-                    CreatedBy = i.CreatedBy,
-                    CreatedOn = i.CreatedOn,
-                    LastUpdatedBy = i.LastUpdatedBy,
-                    LastUpdatedOn = i.LastUpdatedOn,
-                    StatusOrder = i.StatusOrder,
-                    StatusName = i.StatusName,
-                    Address = i.Address,
-                    Employee = i.Employee,
-                    TotalOfPieces = i.TotalOfPieces,
-                    UnitPiece = i.UnitPiece,
-                    Contact = i.Contact,
-                    UserId= i.UserId,
-                })
-                .ToList();
+            if (obj.StartDate.HasValue && obj.EndDate.HasValue)
+            {
+                var invoicesList = _context.Invoices
+                    .Where(u => !u.IsDeleted &&
+                                 u.CreatedOn.Date >= obj.StartDate.Value.Date &&
+                                 u.CreatedOn.Date <= obj.EndDate.Value.Date)
+                    .OrderByDescending(u => u.CreatedOn)
+                    .Select(i => new InvoiceModel
+                    {
+                        InvoiceCode = i.InvoiceCode,
+                        IdentificationType = i.IdentificationType,
+                        DocumentInfo = i.DocumentInfo,
+                        IdentificationInfo = i.IdentificationInfo,
+                        Telephone = i.Telephone,
+                        Email = i.Email,
+                        SelectedCategory = i.SelectedCategory,
+                        DeliveryType = i.DeliveryType,
+                        SelectedDistrict = i.SelectedDistrict,
+                        TotalWeight = i.TotalWeight,
+                        Subtotal = i.Subtotal,
+                        IgvRate = i.IgvRate,
+                        TotalInvoice = i.TotalInvoice,
+                        CreatedBy = i.CreatedBy,
+                        CreatedOn = i.CreatedOn,
+                        LastUpdatedBy = i.LastUpdatedBy,
+                        LastUpdatedOn = i.LastUpdatedOn,
+                        StatusOrder = i.StatusOrder,
+                        StatusName = i.StatusName,
+                        Address = i.Address,
+                        Employee = i.Employee,
+                        TotalOfPieces = i.TotalOfPieces,
+                        UnitPiece = i.UnitPiece,
+                        Contact = i.Contact,
+                        UserId = i.UserId,
+                    })
+                    .ToList();
 
-            return invoicesList;
+                return invoicesList;
+            }
+
+            return new List<InvoiceModel>();
         }
+
         public List<InvoiceModel> GetAllInvoices()
         {
             var userIdToPrefixMap = _context.AspNetUsers
