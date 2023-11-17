@@ -259,9 +259,9 @@ namespace DEMO_SOLDS.APP.Services
                         IgvRate = obj.IgvRate,
                         TotalInvoice = obj.TotalInvoice,
                         CreatedBy = obj.CreatedBy,
-                        CreatedOn = DateTime.UtcNow,
+                        CreatedOn = DateTime.Now,
                         LastUpdatedBy = obj.CreatedBy,
-                        LastUpdatedOn = DateTime.UtcNow,
+                        LastUpdatedOn = DateTime.Now,
                         StatusOrder = 1,
                         StatusName = "En progreso",
                         IsDeleted = false,
@@ -328,9 +328,9 @@ namespace DEMO_SOLDS.APP.Services
                     IgvRate = obj.IgvRate,
                     TotalInvoice = obj.TotalInvoice,
                     CreatedBy = obj.CreatedBy,
-                    CreatedOn = DateTime.UtcNow,
+                    CreatedOn = DateTime.Now,
                     LastUpdatedBy = obj.CreatedBy,
-                    LastUpdatedOn = DateTime.UtcNow,
+                    LastUpdatedOn = DateTime.Now,
                     StatusOrder = 1,
                     StatusName = "En progreso",
                     IsDeleted = false,
@@ -377,7 +377,7 @@ namespace DEMO_SOLDS.APP.Services
                 invoice.IgvRate = obj.IgvRate;
                 invoice.TotalInvoice = obj.TotalInvoice;              
                 invoice.LastUpdatedBy = obj.CreatedBy;
-                invoice.LastUpdatedOn = DateTime.UtcNow;
+                invoice.LastUpdatedOn = DateTime.Now;
                 invoice.IsParihuelaNeeded = obj.IsParihuelaNeeded;
                 invoice.CantParihuela = obj.CantParihuela;
                 invoice.CostParihuela = obj.CostParihuela;
@@ -436,19 +436,18 @@ namespace DEMO_SOLDS.APP.Services
 
         public dynamic SummaryInfo()
         {
-            DateTime actualDay = DateTime.UtcNow;
+            DateTime actualDay = DateTime.Now.Date; // Asegura que solo la fecha se tenga en cuenta
             decimal monthGoal = 3200000;
 
             var data = _context.Invoices
                 .Where(x => !x.IsDeleted && x.StatusOrder == 2);
 
-            // Obtener un arreglo de precios facturados de cada mes
             decimal[] monthlyPrices = new decimal[12];
             decimal[] monthlyPricesLastYear = new decimal[12];
 
             foreach (var invoice in data.Where(u => u.CreatedOn.Year == actualDay.Year || u.CreatedOn.Year == actualDay.Year - 1))
             {
-                int monthIndex = invoice.CreatedOn.Month - 1; // Restar 1 porque los índices de arreglo comienzan en 0
+                int monthIndex = invoice.CreatedOn.Month - 1;
                 decimal totalInvoice = invoice.TotalInvoice;
 
                 if (invoice.CreatedOn.Year == actualDay.Year)
@@ -457,11 +456,11 @@ namespace DEMO_SOLDS.APP.Services
                     monthlyPricesLastYear[monthIndex] += totalInvoice;
             }
 
-            int numberOfInvoicesToday = data.Count(u => u.CreatedOn.Date == actualDay.Date);
+            int numberOfInvoicesToday = data.Count(u => u.CreatedOn.Date == actualDay);
             int numberOfInvoicesMonthly = data.Count(u => u.CreatedOn.Month == actualDay.Month);
 
             decimal totalToday = data
-                .Where(u => u.CreatedOn.Date == actualDay.Date)
+                .Where(u => u.CreatedOn.Date == actualDay)
                 .Sum(a => a.TotalInvoice);
 
             decimal totalMonth = monthlyPrices.Sum();
@@ -484,17 +483,29 @@ namespace DEMO_SOLDS.APP.Services
                 PercentageTotalMonth = (totalMonth / monthGoal) * 100,
                 MonthlyPrices = monthlyPrices,
                 MonthlyPricesLastYear = monthlyPricesLastYear,
-                PercentageProducts = new[] { bloquesPercentage * 100, adokingPercentage * 100, grassMichiPercentage * 100,enchapePercentage * 100, aisladoresPercentage * 100 }
+                PercentageProducts = new[]
+                {
+                    Math.Round(bloquesPercentage * 100, 2),
+                    Math.Round(adokingPercentage * 100, 2),
+                    Math.Round(grassMichiPercentage * 100, 2),
+                    Math.Round(enchapePercentage * 100, 2),
+                    Math.Round(aisladoresPercentage * 100, 2)
+                }
             };
         }
 
+
         private decimal CalculateCategoryPercentage(List<Invoices> data, string category, int totalInvoices)
         {
+            if (totalInvoices == 0)
+            {
+                // Manejo de error o devolución de un valor predeterminado,
+                // dependiendo de los requisitos específicos de tu aplicación.
+                return 0;
+            }
+
             return (decimal)data.Count(x => x.SelectedCategory.Contains(category)) / totalInvoices;
         }
-
-
-
 
 
     }
