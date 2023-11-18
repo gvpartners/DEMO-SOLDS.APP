@@ -34,7 +34,6 @@ namespace DEMO_SOLDS.APP.Services
                     IsDeleted = u.IsDeleted,
                     IsApproved = u.IsApproved,
                     Phone = u.Phone,
-                    IsLastVersion = u.IsLastVersion
                 })
                 .ToList();
 

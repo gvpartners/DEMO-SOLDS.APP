@@ -4,12 +4,14 @@ using Microsoft.AspNetCore.Cors;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using R2.DEMO.APP.Context;
+using Microsoft.AspNetCore.Authorization;
 
 namespace DEMO_SOLDS.APP.Controllers
 {
     [EnableCors("corsRules")]
     [Route("api/[controller]")]
     [ApiController]
+    [Authorize]
     public class CustomerController : Controller
     {
         private CustomerService _customerService;

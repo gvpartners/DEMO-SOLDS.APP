@@ -23,6 +23,7 @@ namespace DEMO_SOLDS.APP.Controllers
     [EnableCors("corsRules")]
     [Route("api/[controller]")]
     [ApiController]
+    [Authorize]
     public class InvoiceController : ControllerBase
     {
         private UserService _userService;
