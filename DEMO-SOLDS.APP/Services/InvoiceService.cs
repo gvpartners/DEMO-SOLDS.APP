@@ -113,7 +113,6 @@ namespace DEMO_SOLDS.APP.Services
         public List<InvoiceModel> GetAllInvoices()
         {
             var userIdToPrefixMap = _context.AspNetUsers
-                .Where(u => u.IsDeleted != true)
                 .ToDictionary(u => u.Id, u => new { Prefix = u.Prefix, Name = u.Name, FirstLastName = u.FirstLastName });
 
             var invoicesList = _context.Invoices
@@ -168,7 +167,6 @@ namespace DEMO_SOLDS.APP.Services
                 .Where(u => u.IsDeleted != true && u.Id == Id)
                 ?.FirstOrDefault();
             var userIdToPrefixMap = _context.AspNetUsers
-                .Where(u => u.IsDeleted != true)
                 .ToDictionary(u => u.Id, u => new { Prefix = u.Prefix, Name = u.Name, FirstLastName = u.FirstLastName });
             InvoiceModel invoiceById = new InvoiceModel
             {
