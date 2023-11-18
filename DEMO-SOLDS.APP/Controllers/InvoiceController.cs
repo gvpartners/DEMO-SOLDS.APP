@@ -278,5 +278,39 @@ namespace DEMO_SOLDS.APP.Controllers
                 return Ok(response);
             });
         }
+        [HttpGet("GetCommentById/{id}")]
+        public async Task<ActionResult<dynamic>> GetCommentById(Guid id)
+        {
+            dynamic response;
+            return await Task.Run(() =>
+            {
+                try
+                {
+                    response = _invoiceService.GetCommentById(id);
+                }
+                catch (Exception ex)
+                {
+                    return BadRequest(ex.Message);
+                }
+                return Ok(response);
+            });
+        }
+        [HttpPost("UpdateCommentbyId/{id}/{newComment}")]
+        public async Task<IActionResult> UpdateCommentbyId(Guid id, string newComment)
+        {
+            try
+            {
+                await Task.Run(() =>
+                {
+                    _invoiceService.UpdateCommentbyId(id,newComment);
+                });
+
+                return Ok();
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
     }
 }

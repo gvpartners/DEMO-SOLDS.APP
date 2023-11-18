@@ -51,6 +51,8 @@ namespace DEMO_SOLDS.APP.Models
         public string? UnitPiece { get; set; }
         public string? Contact { get; set; }
         public Guid UserId { get; set; }
+        public string? Reference { get; set; }
+        public string? Comment { get; set; }
     }
 
     public class InvoiceModel
@@ -93,6 +95,8 @@ namespace DEMO_SOLDS.APP.Models
         public string? UnitPiece { get; set; }
         public string? Contact { get; set; }
         public Guid UserId { get; set; }
+        public string? Reference { get; set; }
+        public string? Comment { get; set; }
     }
 
     public class Invoices
@@ -135,5 +139,7 @@ namespace DEMO_SOLDS.APP.Models
         public string? UnitPiece { get; set; }
         public string? Contact { get; set; }
         public Guid UserId { get; set; }
+        public string? Reference { get; set; }
+        public string? Comment { get; set; }
     }
 }

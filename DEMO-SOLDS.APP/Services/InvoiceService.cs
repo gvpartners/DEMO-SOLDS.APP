@@ -121,7 +121,7 @@ namespace DEMO_SOLDS.APP.Services
                 .Select(i => new InvoiceModel
                 {
                     Id = i.Id,
-                    InvoiceCode = "COT-" + userIdToPrefixMap[i.UserId].Prefix + i.InvoiceCode.PadLeft(6, '0'),
+                    InvoiceCode = "COT-" + userIdToPrefixMap[i.UserId].Prefix + i.InvoiceCode.PadLeft(7, '0'),
                     IdentificationType = i.IdentificationType,
                     DocumentInfo = i.DocumentInfo,
                     IdentificationInfo = i.IdentificationInfo,
@@ -154,6 +154,8 @@ namespace DEMO_SOLDS.APP.Services
                     Contact = i.Contact,
                     UserId = i.UserId,
                     CantParihuela= i.IsParihuelaNeeded == "No" ? 0: i.CantParihuela,
+                    Comment= i.Comment,
+                    Reference = i.Reference
                 })
                 .ToList();
 
@@ -171,7 +173,7 @@ namespace DEMO_SOLDS.APP.Services
             InvoiceModel invoiceById = new InvoiceModel
             {
                 Id = i.Id,
-                InvoiceCode = "COT-" + userIdToPrefixMap[i.UserId].Prefix + i.InvoiceCode.PadLeft(6, '0'),
+                InvoiceCode = "COT-" + userIdToPrefixMap[i.UserId].Prefix + i.InvoiceCode.PadLeft(7, '0'),
                 IdentificationType = i.IdentificationType,
                 DocumentInfo = i.DocumentInfo,
                 IdentificationInfo = i.IdentificationInfo,
@@ -205,7 +207,9 @@ namespace DEMO_SOLDS.APP.Services
                 TotalOfPieces = i.TotalOfPieces,
                 UnitPiece = i.UnitPiece,
                 Contact = i.Contact,
-                UserId = i.UserId
+                UserId = i.UserId,
+                Comment= i.Comment,
+                Reference = i.Reference
             };
 
             return invoiceById;
@@ -282,6 +286,7 @@ namespace DEMO_SOLDS.APP.Services
                         UnitPiece = obj.UnitPiece,
                         Contact = obj.Contact,
                         UserId = obj.UserId,
+                        Reference = obj.Reference
                     };
                     _context.Add(newInvoice);
                     _context.SaveChanges();
@@ -303,7 +308,6 @@ namespace DEMO_SOLDS.APP.Services
             {
                 CreateCustomer(obj);
             }
-            // Extract the numeric part and increment it
             int nextInvoiceNumber = 1;
             if (!string.IsNullOrEmpty(latestInvoiceNumber))
             {
@@ -351,6 +355,7 @@ namespace DEMO_SOLDS.APP.Services
                     UnitPiece = obj.UnitPiece,
                     Contact = obj.Contact,
                     UserId = obj.UserId,
+                    Reference = obj.Reference,
                 };
                 _context.Add(newInvoice);
                 _context.SaveChanges();
@@ -393,6 +398,7 @@ namespace DEMO_SOLDS.APP.Services
                 invoice.UnitPiece = obj.UnitPiece;
                 invoice.TotalOfPieces= obj.TotalOfPieces;
                 invoice.Contact = obj.Contact;
+                invoice.Reference = obj.Reference;
 
                 _context.SaveChanges();
             }
@@ -506,14 +512,31 @@ namespace DEMO_SOLDS.APP.Services
         {
             if (totalInvoices == 0)
             {
-                // Manejo de error o devolución de un valor predeterminado,
-                // dependiendo de los requisitos específicos de tu aplicación.
                 return 0;
             }
 
             return (decimal)data.Count(x => x.SelectedCategory.Contains(category)) / totalInvoices;
         }
+        public string GetCommentById(Guid Id)
+        {
+            var comment = _context.Invoices.FirstOrDefault(x => x.Id == Id)?.Comment;
+            if (comment == null)
+            {
+                return string.Empty;
+            }
 
+            return comment;
+        }
+        public void UpdateCommentbyId(Guid Id, string newComment)
+        {
+            var invoice = _context.Invoices.FirstOrDefault(x => x.Id == Id);
+            if (invoice != null)
+            {
+                invoice.Comment = newComment;
+                _context.SaveChanges();
+            }
+
+        }
 
     }
 }
