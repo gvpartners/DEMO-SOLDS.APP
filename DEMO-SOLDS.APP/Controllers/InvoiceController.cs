@@ -140,15 +140,15 @@ namespace DEMO_SOLDS.APP.Controllers
             }
         }
 
-        [HttpGet("GetAllInvoices")]
-        public async Task<ActionResult<dynamic>> GetAllInvoices()
+        [HttpPost("GetAllInvoices")]
+        public async Task<ActionResult<dynamic>> GetAllInvoices(InvoicePage pag)
         {
             dynamic response;
             return await Task.Run(() =>
             {
                 try
                 {
-                    response = _invoiceService.GetAllInvoices();
+                    response = _invoiceService.GetAllInvoices(pag);
                 }
                 catch (Exception ex)
                 {

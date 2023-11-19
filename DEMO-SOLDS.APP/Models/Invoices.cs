@@ -99,6 +99,11 @@ namespace DEMO_SOLDS.APP.Models
         public string? Comment { get; set; }
     }
 
+    public class InvoiceListResponse
+    {
+        public List<InvoiceModel> Invoices { get; set; }
+        public int Total { get; set; }
+    }
     public class Invoices
     {
         public Guid Id { get; set; }
