@@ -113,81 +113,110 @@ namespace DEMO_SOLDS.APP.Services
 
         public InvoiceListResponse GetAllInvoices(InvoicePage pag)
         {
-            // Calculate the number of records to skip
+            // Calcular el número de registros para omitir
             int recordsToSkip = (pag.PageNumber) * pag.PageSize;
 
+            // Mapear los IDs de usuario a prefijos
             var userIdToPrefixMap = _context.AspNetUsers
                 .ToDictionary(u => u.Id, u => new { Prefix = u.Prefix, Name = u.Name, FirstLastName = u.FirstLastName });
 
+            // Crear la consulta base de facturas (sin filtros aplicados)
             var query = _context.Invoices.Where(i => i.IsDeleted != true);
 
-
-            // Apply additional filters based on the statusFilter parameter
-            if (!string.IsNullOrEmpty(pag.FilterColumn))
+            // Aplicar filtros si están presentes
+            if (pag.Filters != null)
             {
-                switch (pag.FilterColumn)
+                if (!string.IsNullOrEmpty(pag.Filters.IdentificationInfoFilter))
                 {
-                    case "InvoiceCode":
-                        query = query.Where(i => i.InvoiceCode.ToLower().Contains(pag.FilterValue.ToLower()));
-                        break;
-                    case "IdentificationInfo":
-                        query = query.Where(i => i.IdentificationInfo.ToLower().Contains(pag.FilterValue.ToLower()));
-                        break;
-                    case "DocumentInfo":
-                        query = query.Where(i => i.DocumentInfo.ToLower().Contains(pag.FilterValue.ToLower()));
-                        break;
-                    case "SelectedCategory":
-                        query = query.Where(i => i.SelectedCategory.ToLower().Contains(pag.FilterValue.ToLower()));
-                        break;
-                    case "TotalInvoice":
-                        query = query.Where(i => i.TotalInvoice.ToString().Contains(pag.FilterValue));
-                        break;
-                    case "DeliveryType":
-                        query = query.Where(i => i.DeliveryType.ToLower().Contains(pag.FilterValue.ToLower()));
-                        break;
-                    case "Employee":
-                        query = query.Where(i => (i.CreatedBy).ToLower().Contains(pag.FilterValue.ToLower()));
-                        break;
-                    case "StatusName":
-                        query = query.Where(i => i.StatusName.ToLower().Contains(pag.FilterValue.ToLower()));
-                        break;
-                    case "CreatedOn":
-                        query = query.Where(i => i.CreatedOn.Equals(pag.FilterValue));
-                        break;
-                    case "TotalOfPieces":
-                        query = query.Where(i => i.TotalOfPieces.ToString().Contains(pag.FilterValue));
-                        break;
-                    case "UnitPiece":
-                        query = query.Where(i => i.UnitPiece.ToLower().Contains(pag.FilterValue.ToLower()));
-                        break;
-                    case "SelectedDistrict":
-                        query = query.Where(i => i.SelectedDistrict.ToLower().Contains(pag.FilterValue.ToLower()));
-                        break;
-                    case "Address":
-                        query = query.Where(i => i.Address.ToLower().Contains(pag.FilterValue.ToLower()));
-                        break;
-                    case "Reference":
-                        query = query.Where(i => i.Reference.ToLower().Contains(pag.FilterValue.ToLower()));
-                        break;
-                    case "Telephone":
-                        query = query.Where(i => i.Telephone.ToLower().Contains(pag.FilterValue.ToLower()));
-                        break;
-                    case "Contact":
-                        query = query.Where(i => i.Contact.ToLower().Contains(pag.FilterValue.ToLower()));
-                        break;
-                    default:
-                        break;
+                    query = query.Where(i => i.IdentificationInfo.Contains(pag.Filters.IdentificationInfoFilter));
                 }
-                    
+
+                if (!string.IsNullOrEmpty(pag.Filters.IdentificationTypeFilter))
+                {
+                    query = query.Where(i => i.IdentificationType.Contains(pag.Filters.IdentificationTypeFilter));
+                }
+
+                if (!string.IsNullOrEmpty(pag.Filters.DocumentInfoFilter))
+                {
+                    query = query.Where(i => i.DocumentInfo.Contains(pag.Filters.DocumentInfoFilter));
+                }
+
+                if (!string.IsNullOrEmpty(pag.Filters.TelephoneFilter))
+                {
+                    query = query.Where(i => i.Telephone.Contains(pag.Filters.TelephoneFilter));
+                }
+
+                if (!string.IsNullOrEmpty(pag.Filters.SelectedCategoryFilter))
+                {
+                    query = query.Where(i => i.SelectedCategory.Contains(pag.Filters.SelectedCategoryFilter));
+                }                             
+
+                if (!string.IsNullOrEmpty(pag.Filters.DeliveryTypeFilter))
+                {
+                    query = query.Where(i => i.DeliveryType.Contains(pag.Filters.DeliveryTypeFilter));
+                }
+
+                if (!string.IsNullOrEmpty(pag.Filters.SelectedDistrictFilter))
+                {
+                    query = query.Where(i => i.SelectedDistrict.Contains(pag.Filters.SelectedDistrictFilter));
+                }
+
+                if (!string.IsNullOrEmpty(pag.Filters.TotalInvoiceFilter))
+                {
+                    query = query.Where(i => i.TotalInvoice.ToString().Contains(pag.Filters.TotalInvoiceFilter));
+                }                
+
+                if (!string.IsNullOrEmpty(pag.Filters.StatusNameFilter))
+                {
+                    query = query.Where(i => i.StatusName.Contains(pag.Filters.StatusNameFilter));
+                }               
+
+                if (!string.IsNullOrEmpty(pag.Filters.InvoiceCodeFilter))
+                {
+                    query = query.Where(i => i.InvoiceCode.Contains(pag.Filters.InvoiceCodeFilter));
+                }
+
+                if (!string.IsNullOrEmpty(pag.Filters.TotalPriceParihuelaFilter))
+                {
+                    query = query.Where(i => i.TotalPriceParihuela.ToString().Contains(pag.Filters.TotalPriceParihuelaFilter));
+                }
+
+                if (!string.IsNullOrEmpty(pag.Filters.AddressFilter))
+                {
+                    query = query.Where(i => i.Address.Contains(pag.Filters.AddressFilter));
+                }
+
+                if (!string.IsNullOrEmpty(pag.Filters.EmployeeFilter))
+                {
+                    query = query.Where(i => i.Employee.Contains(pag.Filters.EmployeeFilter));
+                }
+
+                if (!string.IsNullOrEmpty(pag.Filters.UnitPieceFilter))
+                {
+                    query = query.Where(i => i.UnitPiece.Contains(pag.Filters.UnitPieceFilter));
+                }
+
+                if (!string.IsNullOrEmpty(pag.Filters.ContactFilter))
+                {
+                    query = query.Where(i => i.Contact.Contains(pag.Filters.ContactFilter));
+                }
+
+                if (!string.IsNullOrEmpty(pag.Filters.ReferenceFilter))
+                {
+                    query = query.Where(i => i.Reference.Contains(pag.Filters.ReferenceFilter));
+                }
             }
 
+            // Contar el total de facturas sin aplicar paginación
             var totalOfInvoices = query.Count();
 
+            // Aplicar paginación y seleccionar las propiedades necesarias para el modelo de respuesta
             var invoicesList = query
                 .Skip(recordsToSkip)
                 .Take(pag.PageSize)
                 .Select(i => new InvoiceModel
                 {
+                    // Asignar propiedades del modelo desde la entidad de factura
                     Id = i.Id,
                     InvoiceCode = "COT-" + userIdToPrefixMap[i.UserId].Prefix + i.InvoiceCode.PadLeft(7, '0'),
                     IdentificationType = i.IdentificationType,
@@ -221,17 +250,20 @@ namespace DEMO_SOLDS.APP.Services
                     UnitPiece = i.UnitPiece,
                     Contact = i.Contact,
                     UserId = i.UserId,
-                    CantParihuela= i.IsParihuelaNeeded == "No" ? 0: i.CantParihuela,
-                    Comment= i.Comment,
+                    CantParihuela = i.IsParihuelaNeeded == "No" ? 0 : i.CantParihuela,
+                    Comment = i.Comment,
                     Reference = i.Reference
                 })
                 .ToList();
 
-            return new InvoiceListResponse { 
+            // Crear y devolver la respuesta con la lista paginada de facturas y el total de facturas
+            return new InvoiceListResponse
+            {
                 Total = totalOfInvoices,
                 Invoices = invoicesList
             };
         }
+
 
         public InvoiceModel GetInvoiceById(Guid Id)
         {
