@@ -20,13 +20,14 @@ namespace DEMO_SOLDS.APP.Models
         public string? DeliveryTypeFilter { get; set; }
         public string? EmployeeFilter { get; set; }
         public string? StatusNameFilter { get; set; }
-        public string? TotalPriceParihuelaFilter { get; set; }
+        public string? TotalOfPieces { get; set; }
         public string? UnitPieceFilter { get; set; }
         public string? SelectedDistrictFilter { get; set; }
         public string? AddressFilter { get; set; }
         public string? ReferenceFilter { get; set; }
         public string? TelephoneFilter { get; set; }
-        public string? ContactFilter { get; set; }        
+        public string? ContactFilter { get; set; } 
+        public DateTime? InvoiceDate { get; set; }
     }
 
 }

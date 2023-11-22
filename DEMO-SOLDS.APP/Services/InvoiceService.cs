@@ -11,6 +11,7 @@ using System.Linq;
 using DocumentFormat.OpenXml.Math;
 using DocumentFormat.OpenXml.Bibliography;
 using DocumentFormat.OpenXml.Wordprocessing;
+using Microsoft.IdentityModel.Tokens;
 
 namespace DEMO_SOLDS.APP.Services
 {
@@ -119,7 +120,6 @@ namespace DEMO_SOLDS.APP.Services
             // Mapear los IDs de usuario a prefijos
             var userIdToPrefixMap = _context.AspNetUsers
                 .ToDictionary(u => u.Id, u => new { Prefix = u.Prefix, Name = u.Name, FirstLastName = u.FirstLastName });
-
             // Crear la consulta base de facturas (sin filtros aplicados)
             var query = _context.Invoices.Where(i => i.IsDeleted != true);
 
@@ -133,7 +133,7 @@ namespace DEMO_SOLDS.APP.Services
 
                 if (!string.IsNullOrEmpty(pag.Filters.IdentificationTypeFilter))
                 {
-                    query = query.Where(i => i.IdentificationType.Contains(pag.Filters.IdentificationTypeFilter));
+                    query = query.Where(i => i.DocumentInfo.Contains(pag.Filters.IdentificationTypeFilter));
                 }
 
                 if (!string.IsNullOrEmpty(pag.Filters.DocumentInfoFilter))
@@ -176,9 +176,9 @@ namespace DEMO_SOLDS.APP.Services
                     query = query.Where(i => i.InvoiceCode.Contains(pag.Filters.InvoiceCodeFilter));
                 }
 
-                if (!string.IsNullOrEmpty(pag.Filters.TotalPriceParihuelaFilter))
+                if (!string.IsNullOrEmpty(pag.Filters.TotalOfPieces))
                 {
-                    query = query.Where(i => i.TotalPriceParihuela.ToString().Contains(pag.Filters.TotalPriceParihuelaFilter));
+                    query = query.Where(i => i.TotalOfPieces.ToString().Contains(pag.Filters.TotalOfPieces));
                 }
 
                 if (!string.IsNullOrEmpty(pag.Filters.AddressFilter))
@@ -188,7 +188,19 @@ namespace DEMO_SOLDS.APP.Services
 
                 if (!string.IsNullOrEmpty(pag.Filters.EmployeeFilter))
                 {
-                    query = query.Where(i => i.Employee.Contains(pag.Filters.EmployeeFilter));
+                    var userEntry = userIdToPrefixMap.FirstOrDefault(u => u.Value.Name.IndexOf(pag.Filters.EmployeeFilter, StringComparison.OrdinalIgnoreCase) >= 0);
+
+                    if (userEntry.Key != null)
+                    {
+                        string employeeId = userEntry.Key.ToString();
+                        query = query.Where(i => i.Employee == employeeId);
+                    }
+                    else
+                    {
+                        Guid guid = Guid.NewGuid();  
+                        query = query.Where(i => i.Employee == guid.ToString());
+                    }
+                    
                 }
 
                 if (!string.IsNullOrEmpty(pag.Filters.UnitPieceFilter))
@@ -204,6 +216,10 @@ namespace DEMO_SOLDS.APP.Services
                 if (!string.IsNullOrEmpty(pag.Filters.ReferenceFilter))
                 {
                     query = query.Where(i => i.Reference.Contains(pag.Filters.ReferenceFilter));
+                }
+                if (pag.Filters.InvoiceDate.HasValue)
+                {
+                    query = query.Where(i => i.CreatedOn.Date == pag.Filters.InvoiceDate.Value.Date);
                 }
             }
 
