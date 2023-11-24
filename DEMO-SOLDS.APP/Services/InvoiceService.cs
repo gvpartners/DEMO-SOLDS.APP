@@ -121,105 +121,132 @@ namespace DEMO_SOLDS.APP.Services
             var userIdToPrefixMap = _context.AspNetUsers
                 .ToDictionary(u => u.Id, u => new { Prefix = u.Prefix, Name = u.Name, FirstLastName = u.FirstLastName });
             // Crear la consulta base de facturas (sin filtros aplicados)
-            var query = _context.Invoices.Where(i => i.IsDeleted != true);
+            var query = _context.Invoices.Where(i => i.IsDeleted != true).Select(i => new InvoiceModel
+            {
+                // Asignar propiedades del modelo desde la entidad de factura
+                Id = i.Id,
+                InvoiceCode = "COT-" + userIdToPrefixMap[i.UserId].Prefix + i.InvoiceCode.PadLeft(7, '0'),
+                IdentificationType = i.IdentificationType,
+                DocumentInfo = i.DocumentInfo,
+                IdentificationInfo = i.IdentificationInfo,
+                Telephone = i.Telephone,
+                Email = i.Email,
+                SelectedCategory = i.SelectedCategory,
+                SelectedMeasures = JsonConvert.DeserializeObject<List<string>>(i.SelectedMeasures),
+                MeasureQuantities = JsonConvert.DeserializeObject<List<int>>(i.MeasureQuantities),
+                DeliveryType = i.DeliveryType,
+                SelectedDistrict = i.SelectedDistrict,
+                Truck9TN = i.Truck9TN,
+                Truck20TN = i.Truck20TN,
+                Truck32TN = i.Truck32TN,
+                ProductsList = JsonConvert.DeserializeObject<List<ProductModel>>(i.ProductsList),
+                FleteList = JsonConvert.DeserializeObject<List<TruckModel>>(i.FleteList),
+                TotalWeight = i.TotalWeight,
+                Subtotal = i.Subtotal,
+                IgvRate = i.IgvRate,
+                TotalInvoice = i.TotalInvoice,
+                CreatedBy = i.CreatedBy,
+                CreatedOn = i.CreatedOn,
+                LastUpdatedBy = i.LastUpdatedBy,
+                LastUpdatedOn = i.LastUpdatedOn,
+                StatusOrder = i.StatusOrder,
+                StatusName = i.StatusName,
+                Address = i.Address,
+                Employee = userIdToPrefixMap[i.UserId].Name + " " + userIdToPrefixMap[i.UserId].FirstLastName,
+                TotalOfPieces = i.TotalOfPieces,
+                UnitPiece = i.UnitPiece,
+                Contact = i.Contact,
+                UserId = i.UserId,
+                CantParihuela = i.IsParihuelaNeeded == "No" ? 0 : i.CantParihuela,
+                Comment = i.Comment,
+                Reference = i.Reference
+            }).ToList();
 
             // Aplicar filtros si están presentes
             if (pag.Filters != null)
             {
                 if (!string.IsNullOrEmpty(pag.Filters.IdentificationInfoFilter))
                 {
-                    query = query.Where(i => i.IdentificationInfo.Contains(pag.Filters.IdentificationInfoFilter));
+                    query = query.Where(i => i.IdentificationInfo.Contains(pag.Filters.IdentificationInfoFilter)).ToList();
                 }
 
                 if (!string.IsNullOrEmpty(pag.Filters.IdentificationTypeFilter))
                 {
-                    query = query.Where(i => i.DocumentInfo.Contains(pag.Filters.IdentificationTypeFilter));
+                    query = query.Where(i => i.DocumentInfo.Contains(pag.Filters.IdentificationTypeFilter)).ToList();
                 }
 
                 if (!string.IsNullOrEmpty(pag.Filters.DocumentInfoFilter))
                 {
-                    query = query.Where(i => i.DocumentInfo.Contains(pag.Filters.DocumentInfoFilter));
+                    query = query.Where(i => i.DocumentInfo.Contains(pag.Filters.DocumentInfoFilter)).ToList();
                 }
 
                 if (!string.IsNullOrEmpty(pag.Filters.TelephoneFilter))
                 {
-                    query = query.Where(i => i.Telephone.Contains(pag.Filters.TelephoneFilter));
+                    query = query.Where(i => i.Telephone.Contains(pag.Filters.TelephoneFilter)).ToList();
                 }
 
                 if (!string.IsNullOrEmpty(pag.Filters.SelectedCategoryFilter))
                 {
-                    query = query.Where(i => i.SelectedCategory.Contains(pag.Filters.SelectedCategoryFilter));
+                    query = query.Where(i => i.SelectedCategory.Contains(pag.Filters.SelectedCategoryFilter)).ToList();
                 }                             
 
                 if (!string.IsNullOrEmpty(pag.Filters.DeliveryTypeFilter))
                 {
-                    query = query.Where(i => i.DeliveryType.Contains(pag.Filters.DeliveryTypeFilter));
+                    query = query.Where(i => i.DeliveryType.Contains(pag.Filters.DeliveryTypeFilter)).ToList();
                 }
 
                 if (!string.IsNullOrEmpty(pag.Filters.SelectedDistrictFilter))
                 {
-                    query = query.Where(i => i.SelectedDistrict.Contains(pag.Filters.SelectedDistrictFilter));
+                    query = query.Where(i => i.SelectedDistrict.Contains(pag.Filters.SelectedDistrictFilter)).ToList();
                 }
 
                 if (!string.IsNullOrEmpty(pag.Filters.TotalInvoiceFilter))
                 {
-                    query = query.Where(i => i.TotalInvoice.ToString().Contains(pag.Filters.TotalInvoiceFilter));
+                    query = query.Where(i => i.TotalInvoice.ToString().Contains(pag.Filters.TotalInvoiceFilter)).ToList();
                 }                
 
                 if (!string.IsNullOrEmpty(pag.Filters.StatusNameFilter))
                 {
-                    query = query.Where(i => i.StatusName.Contains(pag.Filters.StatusNameFilter));
+                    query = query.Where(i => i.StatusName.Contains(pag.Filters.StatusNameFilter)).ToList();
                 }               
 
                 if (!string.IsNullOrEmpty(pag.Filters.InvoiceCodeFilter))
                 {
-                    query = query.Where(i => i.InvoiceCode.Contains(pag.Filters.InvoiceCodeFilter));
+                    query = query.Where(i => i.InvoiceCode.Contains(pag.Filters.InvoiceCodeFilter)).ToList();
                 }
 
                 if (!string.IsNullOrEmpty(pag.Filters.TotalOfPieces))
                 {
-                    query = query.Where(i => i.TotalOfPieces.ToString().Contains(pag.Filters.TotalOfPieces));
+                    query = query.Where(i => i.TotalOfPieces.ToString().Contains(pag.Filters.TotalOfPieces)).ToList();
                 }
 
                 if (!string.IsNullOrEmpty(pag.Filters.AddressFilter))
                 {
-                    query = query.Where(i => i.Address.Contains(pag.Filters.AddressFilter));
+                    query = query.Where(i => i.Address.Contains(pag.Filters.AddressFilter)).ToList();
                 }
 
                 if (!string.IsNullOrEmpty(pag.Filters.EmployeeFilter))
                 {
-                    var userEntry = userIdToPrefixMap.FirstOrDefault(u => u.Value.Name.IndexOf(pag.Filters.EmployeeFilter, StringComparison.OrdinalIgnoreCase) >= 0);
-
-                    if (userEntry.Key != null)
-                    {
-                        string employeeId = userEntry.Key.ToString();
-                        query = query.Where(i => i.Employee == employeeId);
-                    }
-                    else
-                    {
-                        Guid guid = Guid.NewGuid();  
-                        query = query.Where(i => i.Employee == guid.ToString());
-                    }
-                    
+                    query = query.Where(i => i.Employee.ToUpper().Contains(pag.Filters.EmployeeFilter.ToUpper())).ToList();
                 }
 
                 if (!string.IsNullOrEmpty(pag.Filters.UnitPieceFilter))
                 {
-                    query = query.Where(i => i.UnitPiece.Contains(pag.Filters.UnitPieceFilter));
+                    query = query.Where(i => i.UnitPiece.Contains(pag.Filters.UnitPieceFilter)).ToList();
                 }
 
                 if (!string.IsNullOrEmpty(pag.Filters.ContactFilter))
                 {
-                    query = query.Where(i => i.Contact.Contains(pag.Filters.ContactFilter));
+                    query = query.Where(i => i.Contact.Contains(pag.Filters.ContactFilter)).ToList();
                 }
 
                 if (!string.IsNullOrEmpty(pag.Filters.ReferenceFilter))
                 {
-                    query = query.Where(i => i.Reference.Contains(pag.Filters.ReferenceFilter));
+                    query = query.Where(i => i.Reference.Contains(pag.Filters.ReferenceFilter)).ToList();
                 }
                 if (pag.Filters.InvoiceDate.HasValue)
                 {
-                    query = query.Where(i => i.CreatedOn.Date == pag.Filters.InvoiceDate.Value.Date);
+                    query = query.Where(i => i.CreatedOn.Date == pag.Filters.InvoiceDate.Value.Date).ToList();
                 }
             }
 
@@ -230,46 +257,6 @@ namespace DEMO_SOLDS.APP.Services
             var invoicesList = query
                 .Skip(recordsToSkip)
                 .Take(pag.PageSize)
-                .Select(i => new InvoiceModel
-                {
-                    // Asignar propiedades del modelo desde la entidad de factura
-                    Id = i.Id,
-                    InvoiceCode = "COT-" + userIdToPrefixMap[i.UserId].Prefix + i.InvoiceCode.PadLeft(7, '0'),
-                    IdentificationType = i.IdentificationType,
-                    DocumentInfo = i.DocumentInfo,
-                    IdentificationInfo = i.IdentificationInfo,
-                    Telephone = i.Telephone,
-                    Email = i.Email,
-                    SelectedCategory = i.SelectedCategory,
-                    SelectedMeasures = JsonConvert.DeserializeObject<List<string>>(i.SelectedMeasures),
-                    MeasureQuantities = JsonConvert.DeserializeObject<List<int>>(i.MeasureQuantities),
-                    DeliveryType = i.DeliveryType,
-                    SelectedDistrict = i.SelectedDistrict,
-                    Truck9TN = i.Truck9TN,
-                    Truck20TN = i.Truck20TN,
-                    Truck32TN = i.Truck32TN,
-                    ProductsList = JsonConvert.DeserializeObject<List<ProductModel>>(i.ProductsList),
-                    FleteList = JsonConvert.DeserializeObject<List<TruckModel>>(i.FleteList),
-                    TotalWeight = i.TotalWeight,
-                    Subtotal = i.Subtotal,
-                    IgvRate = i.IgvRate,
-                    TotalInvoice = i.TotalInvoice,
-                    CreatedBy = i.CreatedBy,
-                    CreatedOn = i.CreatedOn,
-                    LastUpdatedBy = i.LastUpdatedBy,
-                    LastUpdatedOn = i.LastUpdatedOn,
-                    StatusOrder = i.StatusOrder,
-                    StatusName = i.StatusName,
-                    Address = i.Address,
-                    Employee = userIdToPrefixMap[i.UserId].Name + " " + userIdToPrefixMap[i.UserId].FirstLastName,
-                    TotalOfPieces = i.TotalOfPieces,
-                    UnitPiece = i.UnitPiece,
-                    Contact = i.Contact,
-                    UserId = i.UserId,
-                    CantParihuela = i.IsParihuelaNeeded == "No" ? 0 : i.CantParihuela,
-                    Comment = i.Comment,
-                    Reference = i.Reference
-                })
                 .ToList();
 
             // Crear y devolver la respuesta con la lista paginada de facturas y el total de facturas
