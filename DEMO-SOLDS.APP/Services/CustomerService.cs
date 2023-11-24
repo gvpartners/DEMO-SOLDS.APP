@@ -4,6 +4,7 @@ using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using DEMO_SOLDS.APP.Models.Pagination;
 
 namespace DEMO_SOLDS.APP.Services
 {
@@ -18,13 +19,42 @@ namespace DEMO_SOLDS.APP.Services
             _context = context;
         }
 
-        public List<Customers> GetAllCustomers()
+        public CustomerListResponse GetAllCustomers(CustomerPage pag)
         {
-            var customers = _context.Customers
-                .Where(u => u.IsDeleted != true)
-                .ToList();
+            // Calcular el número de registros para omitir
+            int recordsToSkip = (pag.PageNumber) * pag.PageSize;
 
-            return customers;
+            // Crear la consulta base de clientes (sin filtros aplicados)
+            var query = _context.Customers.Where(i => i.IsDeleted != true);
+
+            // Aplicar filtros si están presentes
+            if (pag.Filters != null)
+            {
+                if (!string.IsNullOrEmpty(pag.Filters.IdentificationInfoFilter))
+                {
+                    query = query.Where(i => i.IdentificationInfo.Contains(pag.Filters.IdentificationInfoFilter));
+                }
+                if (!string.IsNullOrEmpty(pag.Filters.IdentificationTypeFilter))
+                {
+                    query = query.Where(i => i.IdentificationType.Contains(pag.Filters.IdentificationTypeFilter));
+                }
+                if (!string.IsNullOrEmpty(pag.Filters.CustomerNameFilter))
+                {
+                    query = query.Where(i => i.CustomerName.Contains(pag.Filters.CustomerNameFilter));
+                }
+            }
+
+            // Contar el total de facturas sin aplicar paginación
+            var totalOfCustomers = query.Count();
+
+            var customerList = query.Skip(recordsToSkip).Take(pag.PageSize).ToList();
+
+            // Crear y devolver la respuesta con la lista paginada de clientes y el total de clientes
+            return new CustomerListResponse
+            {
+                Total = totalOfCustomers,
+                Customers = customerList
+            };
         }
 
         public Customers CreateCustomer(string? identificationType, string? identificationInfo, string? customerName)

@@ -11,4 +11,10 @@ namespace DEMO_SOLDS.APP.Models
         public string? IdentificationInfo { get; set; }
         public bool IsDeleted { get; set; }
     }
+
+    public class CustomerListResponse
+    {
+        public List<Customers> Customers { get; set; }
+        public int Total { get; set; }
+    }
 }

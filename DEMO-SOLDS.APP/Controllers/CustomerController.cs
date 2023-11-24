@@ -5,6 +5,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using R2.DEMO.APP.Context;
 using Microsoft.AspNetCore.Authorization;
+using DEMO_SOLDS.APP.Models.Pagination;
 
 namespace DEMO_SOLDS.APP.Controllers
 {
@@ -25,15 +26,15 @@ namespace DEMO_SOLDS.APP.Controllers
             _customerService = new CustomerService(configuration, context);
         }
 
-        [HttpGet("GetAllCustomers")]
-        public async Task<ActionResult<dynamic>> GetAllCustomers()
+        [HttpPost("GetAllCustomers")]
+        public async Task<ActionResult<dynamic>> GetAllCustomers(CustomerPage pag)
         {
             dynamic response;
             return await Task.Run(() =>
             {
                 try
                 {
-                    response = _customerService.GetAllCustomers();
+                    response = _customerService.GetAllCustomers(pag);
                 }
                 catch (Exception ex)
                 {
