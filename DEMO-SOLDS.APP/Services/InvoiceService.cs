@@ -185,22 +185,9 @@ namespace DEMO_SOLDS.APP.Services
                 {
                     query = query.Where(i => i.Address.Contains(pag.Filters.AddressFilter));
                 }
-
                 if (!string.IsNullOrEmpty(pag.Filters.EmployeeFilter))
                 {
-                    var userEntry = userIdToPrefixMap.FirstOrDefault(u => u.Value.Name.IndexOf(pag.Filters.EmployeeFilter, StringComparison.OrdinalIgnoreCase) >= 0);
-
-                    if (userEntry.Key != null)
-                    {
-                        string employeeId = userEntry.Key.ToString();
-                        query = query.Where(i => i.Employee == employeeId);
-                    }
-                    else
-                    {
-                        Guid guid = Guid.NewGuid();
-                        query = query.Where(i => i.Employee == guid.ToString());
-                    }
-
+                    query = query.Where(i => i.Employee.Contains(pag.Filters.EmployeeFilter));
                 }
 
                 if (!string.IsNullOrEmpty(pag.Filters.UnitPieceFilter))
