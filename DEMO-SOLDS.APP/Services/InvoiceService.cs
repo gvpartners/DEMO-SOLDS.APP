@@ -114,16 +114,12 @@ namespace DEMO_SOLDS.APP.Services
 
         public InvoiceListResponse GetAllInvoices(InvoicePage pag)
         {
-            // Calcular el número de registros para omitir
             int recordsToSkip = (pag.PageNumber) * pag.PageSize;
 
-            // Mapear los IDs de usuario a prefijos
             var userIdToPrefixMap = _context.AspNetUsers
                 .ToDictionary(u => u.Id, u => new { Prefix = u.Prefix, Name = u.Name, FirstLastName = u.FirstLastName });
-            // Crear la consulta base de facturas (sin filtros aplicados)
             var query = _context.Invoices.Where(i => i.IsDeleted != true);
 
-            // Aplicar filtros si están presentes
             if (pag.Filters != null)
             {
                 if (!string.IsNullOrEmpty(pag.Filters.IdentificationInfoFilter))
@@ -210,16 +206,12 @@ namespace DEMO_SOLDS.APP.Services
                 }
             }
 
-            // Contar el total de facturas sin aplicar paginación
             var totalOfInvoices = query.Count();
-
-            // Aplicar paginación y seleccionar las propiedades necesarias para el modelo de respuesta
             var invoicesList = query
                 .Skip(recordsToSkip)
                 .Take(pag.PageSize)
                 .Select(i => new InvoiceModel
                 {
-                    // Asignar propiedades del modelo desde la entidad de factura
                     Id = i.Id,
                     InvoiceCode = "COT-" + userIdToPrefixMap[i.UserId].Prefix + i.InvoiceCode.PadLeft(7, '0'),
                     IdentificationType = i.IdentificationType,
