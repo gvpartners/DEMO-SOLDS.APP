@@ -546,7 +546,7 @@ namespace DEMO_SOLDS.APP.Services
 
         public dynamic SummaryInfo()
         {
-            DateTime actualDay = DateTime.Now.Date; // Asegura que solo la fecha se tenga en cuenta
+            DateTime actualDay = DateTime.Now.Date;
             decimal monthGoal = 3200000;
 
             var data = _context.Invoices
@@ -567,7 +567,7 @@ namespace DEMO_SOLDS.APP.Services
             }
 
             int numberOfInvoicesToday = data.Count(u => u.CreatedOn.Date == actualDay);
-            int numberOfInvoicesMonthly = data.Count(u => u.CreatedOn.Month == actualDay.Month);
+            int numberOfInvoicesMonthly = data.Count(u => u.CreatedOn.Month == actualDay.Month && u.CreatedOn.Year == actualDay.Year);
 
             decimal totalToday = data
                 .Where(u => u.CreatedOn.Date == actualDay)
@@ -580,7 +580,7 @@ namespace DEMO_SOLDS.APP.Services
             var adokingPercentage = CalculateCategoryPercentage(auxData, "ADO", numberOfInvoicesMonthly);
             var grassMichiPercentage = CalculateCategoryPercentage(auxData, "GR", numberOfInvoicesMonthly);
             var enchapePercentage = CalculateCategoryPercentage(auxData, "ENCHAPE", numberOfInvoicesMonthly);
-            var aisladoresPercentage = CalculateCategoryPercentage(auxData, "AISLADORES", numberOfInvoicesMonthly);
+            var aisladoresPercentage = CalculateCategoryPercentage(auxData, "AISLADORE", numberOfInvoicesMonthly);
 
             return new
             {
