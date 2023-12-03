@@ -15,6 +15,7 @@ namespace DEMO_SOLDS.APP.Models
         public bool IsDeleted { get; set; }
         public bool IsApproved { get; set; }
         public string? Phone { get; set; }
+        public bool IsAdmin { get; set; }  
     }
     public class UsersModel
     {
@@ -27,5 +28,7 @@ namespace DEMO_SOLDS.APP.Models
         public bool IsDeleted { get; set; }
         public bool IsApproved { get; set; }
         public string? Phone { get; set; }
+        public bool IsAdmin { get; set; }
+
     }
 }
