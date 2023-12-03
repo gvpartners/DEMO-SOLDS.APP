@@ -22,7 +22,7 @@ namespace DEMO_SOLDS.APP.Services
         public List<UsersModel> GetAllUsers()
         {
             var userList = _context.AspNetUsers
-                .Where(u => u.IsDeleted != true)
+                .Where(u => u.IsDeleted != true && u.IsAdmin != true)
                 .Select(u => new UsersModel
                 {
                     Id = u.Id,
