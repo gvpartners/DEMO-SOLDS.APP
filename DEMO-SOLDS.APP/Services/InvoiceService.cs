@@ -205,7 +205,7 @@ namespace DEMO_SOLDS.APP.Services
                     query = query.Where(i => i.CreatedOn.Date == pag.Filters.InvoiceDate.Value.Date);
                 }
             }
-
+            query = query.OrderByDescending(i => i.CreatedOn);
             var totalOfInvoices = query.Count();
             var invoicesList = query
                 .Skip(recordsToSkip)
