@@ -245,7 +245,7 @@ namespace DEMO_SOLDS.APP.Services
                     UnitPiece = i.UnitPiece,
                     Contact = i.Contact,
                     UserId = i.UserId,
-                    CantParihuela = i.IsParihuelaNeeded == "No" ? 0 : i.CantParihuela,
+                    CantParihuela = i.CantParihuela != null ? i.CantParihuela : 0,
                     Comment = i.Comment,
                     Reference = i.Reference
                 })
@@ -297,7 +297,7 @@ namespace DEMO_SOLDS.APP.Services
                 StatusOrder = i.StatusOrder,
                 StatusName = i.StatusName,
                 IsParihuelaNeeded = i.IsParihuelaNeeded ?? "No",
-                CantParihuela = i.IsParihuelaNeeded == "No" ? 0 : i.CantParihuela,
+                CantParihuela = i.CantParihuela != null ? i.CantParihuela : 0,
                 CostParihuela = i.IsParihuelaNeeded == "No" ? 0 : i.CostParihuela,
                 TotalPriceParihuela = i.IsParihuelaNeeded == "No" ? 0 : i.TotalPriceParihuela,
                 Address = i.Address,
