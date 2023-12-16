@@ -53,6 +53,8 @@ namespace DEMO_SOLDS.APP.Models
         public Guid UserId { get; set; }
         public string? Reference { get; set; }
         public string? Comment { get; set; }
+        public string? DiscountApplies { get; set; }
+        public int PercentageOfDiscount { get; set; }
     }
 
     public class InvoiceModel
@@ -97,6 +99,8 @@ namespace DEMO_SOLDS.APP.Models
         public Guid UserId { get; set; }
         public string? Reference { get; set; }
         public string? Comment { get; set; }
+        public string? DiscountApplies { get; set; }
+        public int PercentageOfDiscount { get; set; }
     }
 
     public class InvoiceListResponse
@@ -146,5 +150,7 @@ namespace DEMO_SOLDS.APP.Models
         public Guid UserId { get; set; }
         public string? Reference { get; set; }
         public string? Comment { get; set; }
+        public string? DiscountApplies { get; set; }
+        public int PercentageOfDiscount { get; set; }
     }
 }

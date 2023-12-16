@@ -306,7 +306,9 @@ namespace DEMO_SOLDS.APP.Services
                 Contact = i.Contact,
                 UserId = i.UserId,
                 Comment = i.Comment,
-                Reference = i.Reference
+                Reference = i.Reference,
+                DiscountApplies = i.DiscountApplies ?? "No",
+                PercentageOfDiscount = i.PercentageOfDiscount != null ? i.PercentageOfDiscount : 0
             };
 
             return invoiceById;
@@ -383,7 +385,9 @@ namespace DEMO_SOLDS.APP.Services
                         UnitPiece = obj.UnitPiece,
                         Contact = obj.Contact,
                         UserId = obj.UserId,
-                        Reference = obj.Reference
+                        Reference = obj.Reference,
+                        DiscountApplies = obj.DiscountApplies,
+                        PercentageOfDiscount = obj.PercentageOfDiscount
                     };
                     _context.Add(newInvoice);
                     _context.SaveChanges();
@@ -453,6 +457,8 @@ namespace DEMO_SOLDS.APP.Services
                     Contact = obj.Contact,
                     UserId = obj.UserId,
                     Reference = obj.Reference,
+                    DiscountApplies = obj.DiscountApplies,
+                    PercentageOfDiscount = obj.PercentageOfDiscount
                 };
                 _context.Add(newInvoice);
                 _context.SaveChanges();
@@ -496,6 +502,8 @@ namespace DEMO_SOLDS.APP.Services
                 invoice.TotalOfPieces = obj.TotalOfPieces;
                 invoice.Contact = obj.Contact;
                 invoice.Reference = obj.Reference;
+                invoice.DiscountApplies = obj.DiscountApplies;
+                invoice.PercentageOfDiscount = obj.PercentageOfDiscount;
 
                 _context.SaveChanges();
             }
