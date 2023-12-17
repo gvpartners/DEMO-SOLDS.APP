@@ -308,7 +308,9 @@ namespace DEMO_SOLDS.APP.Services
                 Comment = i.Comment,
                 Reference = i.Reference,
                 DiscountApplies = i.DiscountApplies ?? "No",
-                PercentageOfDiscount = i.PercentageOfDiscount != null ? i.PercentageOfDiscount : 0
+                PercentageOfDiscount = i.PercentageOfDiscount != null ? i.PercentageOfDiscount : 0,
+                IsOtherDistrict = i.IsOtherDistrict ?? "No",
+                ManualTotalPriceFlete = i.ManualTotalPriceFlete != null ? i.ManualTotalPriceFlete : 0
             };
 
             return invoiceById;
@@ -387,7 +389,9 @@ namespace DEMO_SOLDS.APP.Services
                         UserId = obj.UserId,
                         Reference = obj.Reference,
                         DiscountApplies = obj.DiscountApplies,
-                        PercentageOfDiscount = obj.PercentageOfDiscount
+                        PercentageOfDiscount = obj.PercentageOfDiscount,
+                        IsOtherDistrict = obj.IsOtherDistrict,
+                        ManualTotalPriceFlete = obj.ManualTotalPriceFlete
                     };
                     _context.Add(newInvoice);
                     _context.SaveChanges();
@@ -458,7 +462,9 @@ namespace DEMO_SOLDS.APP.Services
                     UserId = obj.UserId,
                     Reference = obj.Reference,
                     DiscountApplies = obj.DiscountApplies,
-                    PercentageOfDiscount = obj.PercentageOfDiscount
+                    PercentageOfDiscount = obj.PercentageOfDiscount,
+                    IsOtherDistrict = obj.IsOtherDistrict,
+                    ManualTotalPriceFlete = obj.ManualTotalPriceFlete
                 };
                 _context.Add(newInvoice);
                 _context.SaveChanges();
@@ -504,6 +510,8 @@ namespace DEMO_SOLDS.APP.Services
                 invoice.Reference = obj.Reference;
                 invoice.DiscountApplies = obj.DiscountApplies;
                 invoice.PercentageOfDiscount = obj.PercentageOfDiscount;
+                invoice.IsOtherDistrict = obj.IsOtherDistrict;
+                invoice.ManualTotalPriceFlete = obj.ManualTotalPriceFlete;
 
                 _context.SaveChanges();
             }

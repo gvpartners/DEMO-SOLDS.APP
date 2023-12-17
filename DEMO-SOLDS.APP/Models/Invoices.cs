@@ -55,6 +55,8 @@ namespace DEMO_SOLDS.APP.Models
         public string? Comment { get; set; }
         public string? DiscountApplies { get; set; }
         public int PercentageOfDiscount { get; set; }
+        public string? IsOtherDistrict { get; set; }
+        public decimal ManualTotalPriceFlete { get; set; }
     }
 
     public class InvoiceModel
@@ -101,6 +103,8 @@ namespace DEMO_SOLDS.APP.Models
         public string? Comment { get; set; }
         public string? DiscountApplies { get; set; }
         public int PercentageOfDiscount { get; set; }
+        public string? IsOtherDistrict { get; set; }
+        public decimal ManualTotalPriceFlete { get; set; }
     }
 
     public class InvoiceListResponse
@@ -152,5 +156,7 @@ namespace DEMO_SOLDS.APP.Models
         public string? Comment { get; set; }
         public string? DiscountApplies { get; set; }
         public int PercentageOfDiscount { get; set; }
+        public string? IsOtherDistrict { get; set; }
+        public decimal ManualTotalPriceFlete { get; set; }
     }
 }
