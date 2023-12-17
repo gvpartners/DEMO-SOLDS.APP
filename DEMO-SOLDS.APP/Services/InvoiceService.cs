@@ -593,10 +593,12 @@ namespace DEMO_SOLDS.APP.Services
 
             var auxData = data.Where(u => u.CreatedOn.Month == actualDay.Month).ToList();
             var bloquesPercentage = CalculateCategoryPercentage(auxData, "BLOQUES", numberOfInvoicesMonthly);
-            var adokingPercentage = CalculateCategoryPercentage(auxData, "ADO", numberOfInvoicesMonthly);
-            var grassMichiPercentage = CalculateCategoryPercentage(auxData, "GR", numberOfInvoicesMonthly);
+            var adokingPercentage = CalculateCategoryPercentage(auxData, "ADOQUINES", numberOfInvoicesMonthly);
+            var grassMichiPercentage = CalculateCategoryPercentage(auxData, "BLOCKGRASS", numberOfInvoicesMonthly);
             var enchapePercentage = CalculateCategoryPercentage(auxData, "ENCHAPE", numberOfInvoicesMonthly);
-            var aisladoresPercentage = CalculateCategoryPercentage(auxData, "AISLADORE", numberOfInvoicesMonthly);
+            var aisladoresPercentage = CalculateCategoryPercentage(auxData, "AISLADOR", numberOfInvoicesMonthly);
+            var kingconcretoPercentage = CalculateCategoryPercentage(auxData, "KINGKONCRETO", numberOfInvoicesMonthly);
+            var topeAisladorPercentage = CalculateCategoryPercentage(auxData, "TOPE AISLADOR", numberOfInvoicesMonthly);
 
             return new
             {
@@ -615,7 +617,9 @@ namespace DEMO_SOLDS.APP.Services
                     Math.Round(adokingPercentage * 100, 2),
                     Math.Round(grassMichiPercentage * 100, 2),
                     Math.Round(enchapePercentage * 100, 2),
-                    Math.Round(aisladoresPercentage * 100, 2)
+                    Math.Round(aisladoresPercentage * 100, 2),
+                    Math.Round(kingconcretoPercentage * 100, 2),
+                    Math.Round(topeAisladorPercentage * 100, 2)
                 }
             };
         }
@@ -628,7 +632,7 @@ namespace DEMO_SOLDS.APP.Services
                 return 0;
             }
 
-            return (decimal)data.Count(x => x.SelectedCategory.Contains(category)) / totalInvoices;
+            return (decimal)data.Count(x => x.SelectedCategory.Equals(category)) / totalInvoices;
         }
         public string GetCommentById(Guid Id)
         {
