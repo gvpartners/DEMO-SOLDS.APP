@@ -44,7 +44,7 @@ namespace DEMO_SOLDS.APP.Models
         public decimal TotalInvoice { get; set; }
         public string? IsParihuelaNeeded { get; set; }
         public int CantParihuela { get; set; }
-        public int CostParihuela { get; set; }
+        public decimal CostParihuela { get; set; }
         public decimal TotalPriceParihuela { get; set; }
         public string? Address { get; set; }
         public long TotalOfPieces { get; set; }
@@ -54,7 +54,7 @@ namespace DEMO_SOLDS.APP.Models
         public string? Reference { get; set; }
         public string? Comment { get; set; }
         public string? DiscountApplies { get; set; }
-        public int PercentageOfDiscount { get; set; }
+        public decimal PercentageOfDiscount { get; set; }
         public string? IsOtherDistrict { get; set; }
         public decimal ManualTotalPriceFlete { get; set; }
     }
@@ -91,7 +91,7 @@ namespace DEMO_SOLDS.APP.Models
         public bool IsDeleted { get; set; }
         public string? IsParihuelaNeeded { get; set; }
         public int CantParihuela { get; set; }
-        public int CostParihuela { get; set; }
+        public decimal CostParihuela { get; set; }
         public decimal TotalPriceParihuela { get; set; }
         public string? Address { get; set; }
         public string? Employee { get; set; }
@@ -102,7 +102,7 @@ namespace DEMO_SOLDS.APP.Models
         public string? Reference { get; set; }
         public string? Comment { get; set; }
         public string? DiscountApplies { get; set; }
-        public int PercentageOfDiscount { get; set; }
+        public decimal PercentageOfDiscount { get; set; }
         public string? IsOtherDistrict { get; set; }
         public decimal ManualTotalPriceFlete { get; set; }
     }
@@ -144,7 +144,7 @@ namespace DEMO_SOLDS.APP.Models
         public bool IsDeleted { get; set; }
         public string? IsParihuelaNeeded { get; set; }
         public int CantParihuela { get; set; }
-        public int CostParihuela { get; set; }
+        public decimal CostParihuela { get; set; }
         public decimal TotalPriceParihuela { get; set; }
         public string? Address { get; set; }
         public string? Employee { get; set; }
@@ -155,7 +155,7 @@ namespace DEMO_SOLDS.APP.Models
         public string? Reference { get; set; }
         public string? Comment { get; set; }
         public string? DiscountApplies { get; set; }
-        public int PercentageOfDiscount { get; set; }
+        public decimal PercentageOfDiscount { get; set; }
         public string? IsOtherDistrict { get; set; }
         public decimal ManualTotalPriceFlete { get; set; }
     }

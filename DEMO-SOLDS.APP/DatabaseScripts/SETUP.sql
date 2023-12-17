@@ -77,7 +77,7 @@ CREATE TABLE [dbo].[Invoices](
 	[InvoiceCode] [nvarchar](max) NULL,
 	[IsParihuelaNeeded] [nvarchar](256) NULL,
 	[CantParihuela] [int] NULL,
-	[CostParihuela] [int] NULL,
+	[CostParihuela] [decimal](20, 2) NULL,
 	[TotalPriceParihuela] [decimal](20, 4) NULL,
 	[Address] [nvarchar](max) NULL,
 	[Employee] [nvarchar](256) NULL,
