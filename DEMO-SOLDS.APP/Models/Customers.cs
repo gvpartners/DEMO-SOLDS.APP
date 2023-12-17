@@ -9,6 +9,7 @@ namespace DEMO_SOLDS.APP.Models
         public string? CustomerName { get; set; }
         public string? IdentificationType { get; set; }
         public string? IdentificationInfo { get; set; }
+        public string? CustomerAddress { get; set; }
         public bool IsDeleted { get; set; }
     }
 

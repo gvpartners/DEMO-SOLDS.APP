@@ -57,17 +57,18 @@ namespace DEMO_SOLDS.APP.Services
             };
         }
 
-        public Customers CreateCustomer(string? identificationType, string? identificationInfo, string? customerName)
+        public Customers CreateCustomer(Customers customer)
         {
-            var existCustomer = _context.Customers.FirstOrDefault(x => x.IdentificationInfo == identificationInfo);
+            var existCustomer = _context.Customers.FirstOrDefault(x => x.IdentificationInfo == customer.IdentificationInfo);
             if (existCustomer == null)
             {
                 var newCustomer = new Customers
                 {
                     Id = Guid.NewGuid(),
-                    CustomerName = customerName,
-                    IdentificationType = identificationType,
-                    IdentificationInfo = identificationInfo,
+                    CustomerName = customer.CustomerName,
+                    IdentificationType = customer.IdentificationType,
+                    IdentificationInfo = customer.IdentificationInfo,
+                    CustomerAddress = customer.CustomerAddress??"",
                     IsDeleted = false
                 };
 
@@ -80,17 +81,22 @@ namespace DEMO_SOLDS.APP.Services
             return new Customers();
 
         }
+        public bool GetIsCustomerInDb(string customerNumber)
+        {
+            var customer = _context.Customers.FirstOrDefault(x => x.IdentificationInfo == customerNumber);
+            return customer != null;
+        }
 
-        public Customers UpdateCustomer(Guid customerId, string? identificationType, string? identificationInfo, string? customerName)
+        public Customers UpdateCustomer(Guid customerId, Customers customer)
         {
             var existingCustomer = _context.Customers.Find(customerId);
 
             if (existingCustomer != null)
             {
-                existingCustomer.CustomerName = customerName;
-                existingCustomer.IdentificationType = identificationType;
-                existingCustomer.IdentificationInfo = identificationInfo;
-
+                existingCustomer.CustomerName = customer.CustomerName;
+                existingCustomer.IdentificationType = customer.IdentificationType;
+                existingCustomer.IdentificationInfo = customer.IdentificationInfo;
+                existingCustomer.CustomerAddress = customer.CustomerAddress??"";
                 _context.SaveChanges();
             }
 

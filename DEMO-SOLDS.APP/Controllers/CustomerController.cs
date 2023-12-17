@@ -52,7 +52,7 @@ namespace DEMO_SOLDS.APP.Controllers
             {
                 try
                 {
-                    response = _customerService.CreateCustomer(customer.IdentificationType, customer.IdentificationInfo, customer.CustomerName);
+                    response = _customerService.CreateCustomer(customer);
                 }
                 catch (Exception ex)
                 {
@@ -61,7 +61,23 @@ namespace DEMO_SOLDS.APP.Controllers
                 return Ok(response);
             });
         }
-
+        [HttpGet("GetIsCustomerInDb/{customerNumber}")]
+        public async Task<ActionResult<dynamic>> GetIsCustomerInDb(string customerNumber)
+        {
+            dynamic response;
+            return await Task.Run(() =>
+            {
+                try
+                {
+                    response = _customerService.GetIsCustomerInDb(customerNumber);
+                }
+                catch (Exception ex)
+                {
+                    return BadRequest(ex.Message);
+                }
+                return Ok(response);
+            });
+        }
         [HttpPut("UpdateCustomer/{customerId}")]
         public async Task<ActionResult<dynamic>> UpdateCustomer(Guid customerId,Customers customer)
         {
@@ -70,7 +86,7 @@ namespace DEMO_SOLDS.APP.Controllers
             {
                 try
                 {
-                    response = _customerService.UpdateCustomer(customerId, customer.IdentificationType, customer.IdentificationInfo,customer.CustomerName);
+                    response = _customerService.UpdateCustomer(customerId, customer);
                 }
                 catch (Exception ex)
                 {
