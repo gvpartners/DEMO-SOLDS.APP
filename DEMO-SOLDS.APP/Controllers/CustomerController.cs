@@ -78,6 +78,23 @@ namespace DEMO_SOLDS.APP.Controllers
                 return Ok(response);
             });
         }
+        [HttpGet("GetCustomerAddress/{documentInfo}")]
+        public async Task<ActionResult<dynamic>> GetCustomerAddress(string documentInfo)
+        {
+            dynamic response;
+            return await Task.Run(() =>
+            {
+                try
+                {
+                    response = _customerService.GetCustomerAddress(documentInfo);
+                }
+                catch (Exception ex)
+                {
+                    return BadRequest(ex.Message);
+                }
+                return Ok(response);
+            });
+        }
         [HttpPut("UpdateCustomer/{customerId}")]
         public async Task<ActionResult<dynamic>> UpdateCustomer(Guid customerId,Customers customer)
         {

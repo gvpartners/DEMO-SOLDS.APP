@@ -86,7 +86,16 @@ namespace DEMO_SOLDS.APP.Services
             var customer = _context.Customers.FirstOrDefault(x => x.IdentificationInfo == customerNumber);
             return customer != null;
         }
-
+        public string GetCustomerAddress(string documentInfo)
+        {
+            var customer = _context.Customers.FirstOrDefault(x => x.IdentificationInfo == documentInfo);
+            string? customerAddress = string.Empty;
+            if(customer != null)
+            {
+                customerAddress = customer.CustomerAddress;
+            }
+            return customerAddress;
+        }
         public Customers UpdateCustomer(Guid customerId, Customers customer)
         {
             var existingCustomer = _context.Customers.Find(customerId);
