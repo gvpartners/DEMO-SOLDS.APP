@@ -543,7 +543,7 @@ namespace DEMO_SOLDS.APP.Services
                 if (OrderStatus == 2)
                 {
                     invoice.StatusOrder = 2;
-                    invoice.StatusName = "Aprobada";
+                    invoice.StatusName = "Cerrada";
                 }
                 if (OrderStatus == 3)
                 {
