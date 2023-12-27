@@ -334,6 +334,11 @@ namespace DEMO_SOLDS.APP.Services
             var obj = _context.Invoices.FirstOrDefault(x => x.Id == InvoiceId);
             if (obj != null)
             {
+                // Obtener la zona horaria de Perú
+                TimeZoneInfo peruTimeZone = TimeZoneInfo.FindSystemTimeZoneById("SA Pacific Standard Time");
+
+                // Obtener la hora actual en la zona horaria de Perú
+                DateTime currentTimePeru = TimeZoneInfo.ConvertTime(DateTime.Now, TimeZoneInfo.Local, peruTimeZone);
                 var user = _context.AspNetUsers.SingleOrDefault(x => x.Email == obj.CreatedBy);
 
                 string latestInvoiceNumber = _context.Invoices
@@ -371,9 +376,9 @@ namespace DEMO_SOLDS.APP.Services
                         IgvRate = obj.IgvRate,
                         TotalInvoice = obj.TotalInvoice,
                         CreatedBy = obj.CreatedBy,
-                        CreatedOn = DateTime.Now,
+                        CreatedOn = currentTimePeru,
                         LastUpdatedBy = obj.CreatedBy,
-                        LastUpdatedOn = DateTime.Now,
+                        LastUpdatedOn = currentTimePeru,
                         StatusOrder = 1,
                         StatusName = "En progreso",
                         IsDeleted = false,
@@ -402,6 +407,11 @@ namespace DEMO_SOLDS.APP.Services
         public string CreateInvoice(AuxInvoiceModel obj)
         {
             var user = _context.AspNetUsers.SingleOrDefault(x => x.Email == obj.CreatedBy);
+            // Obtener la zona horaria de Perú
+            TimeZoneInfo peruTimeZone = TimeZoneInfo.FindSystemTimeZoneById("SA Pacific Standard Time");
+
+            // Obtener la hora actual en la zona horaria de Perú
+            DateTime currentTimePeru = TimeZoneInfo.ConvertTime(DateTime.Now, TimeZoneInfo.Local, peruTimeZone);
 
             string latestInvoiceNumber = _context.Invoices
             .OrderByDescending(i => i.CreatedOn)
@@ -444,9 +454,9 @@ namespace DEMO_SOLDS.APP.Services
                     IgvRate = obj.IgvRate,
                     TotalInvoice = obj.TotalInvoice,
                     CreatedBy = obj.CreatedBy,
-                    CreatedOn = DateTime.Now,
+                    CreatedOn = currentTimePeru,
                     LastUpdatedBy = obj.CreatedBy,
-                    LastUpdatedOn = DateTime.Now,
+                    LastUpdatedOn = currentTimePeru,
                     StatusOrder = 1,
                     StatusName = "En progreso",
                     IsDeleted = false,
@@ -475,7 +485,11 @@ namespace DEMO_SOLDS.APP.Services
         public string UpdateInvoice(Guid InvoiceId, AuxInvoiceModel obj)
         {
             Invoices? invoice = _context.Invoices.Where(x => x.IsDeleted != true && x.Id == InvoiceId)?.FirstOrDefault();
+            // Obtener la zona horaria de Perú
+            TimeZoneInfo peruTimeZone = TimeZoneInfo.FindSystemTimeZoneById("SA Pacific Standard Time");
 
+            // Obtener la hora actual en la zona horaria de Perú
+            DateTime currentTimePeru = TimeZoneInfo.ConvertTime(DateTime.Now, TimeZoneInfo.Local, peruTimeZone);
             if (invoice != null)
             {
                 invoice.IdentificationType = obj.IdentificationType;
@@ -498,7 +512,7 @@ namespace DEMO_SOLDS.APP.Services
                 invoice.IgvRate = obj.IgvRate;
                 invoice.TotalInvoice = obj.TotalInvoice;
                 invoice.LastUpdatedBy = obj.CreatedBy;
-                invoice.LastUpdatedOn = DateTime.Now;
+                invoice.LastUpdatedOn = currentTimePeru;
                 invoice.IsParihuelaNeeded = obj.IsParihuelaNeeded;
                 invoice.CantParihuela = obj.CantParihuela;
                 invoice.CostParihuela = obj.CostParihuela;
@@ -562,7 +576,12 @@ namespace DEMO_SOLDS.APP.Services
 
         public dynamic SummaryInfo()
         {
-            DateTime actualDay = DateTime.Now.Date;
+            // Obtener la zona horaria de Perú
+            TimeZoneInfo peruTimeZone = TimeZoneInfo.FindSystemTimeZoneById("SA Pacific Standard Time");
+
+            // Obtener la hora actual en la zona horaria de Perú
+            DateTime currentTimePeru = TimeZoneInfo.ConvertTime(DateTime.Now, TimeZoneInfo.Local, peruTimeZone);
+            DateTime actualDay = currentTimePeru.Date;
             decimal monthGoal = 3200000;
 
             var data = _context.Invoices
