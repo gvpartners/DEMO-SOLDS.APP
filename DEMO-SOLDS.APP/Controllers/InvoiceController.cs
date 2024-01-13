@@ -65,6 +65,7 @@ namespace DEMO_SOLDS.APP.Controllers
                         "DISTRITO",
                         "DIRECCIÓN",
                         "EJECUTIVO",
+                        "ESTADO",
                         "TELEFONO",
                         "CONTACTO" 
                     };
@@ -95,10 +96,11 @@ namespace DEMO_SOLDS.APP.Controllers
                         worksheet.Cell(row, 10).Value = invoice?.SelectedDistrict;
                         worksheet.Cell(row, 11).Value = invoice?.Address;
                         worksheet.Cell(row, 12).Value = userIdToPrefixMap[invoice.UserId].Name + " " + userIdToPrefixMap[invoice.UserId].FirstLastName;
-                        worksheet.Cell(row, 13).Value = invoice?.Telephone;
-                        worksheet.Cell(row, 14).Value = invoice?.Contact;
+                        worksheet.Cell(row, 13).Value = invoice?.StatusName;
+                        worksheet.Cell(row, 14).Value = invoice?.Telephone;
+                        worksheet.Cell(row, 15).Value = invoice?.Contact;
 
-                        for (int i = 2; i <= 14; i++)
+                        for (int i = 2; i <= 15; i++)
                         {
                             worksheet.Cell(row, i).Style.Border.OutsideBorder = XLBorderStyleValues.Thin;
                             worksheet.Cell(row, i).Style.Border.OutsideBorderColor = XLColor.Black;
