@@ -247,7 +247,8 @@ namespace DEMO_SOLDS.APP.Services
                     UserId = i.UserId,
                     CantParihuela = i.CantParihuela != null ? i.CantParihuela : 0,
                     Comment = i.Comment,
-                    Reference = i.Reference
+                    Reference = i.Reference,
+                    IsParihuelaNeeded = i.IsParihuelaNeeded,
                 })
                 .ToList();
 
