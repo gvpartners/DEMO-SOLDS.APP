@@ -614,11 +614,10 @@ namespace DEMO_SOLDS.APP.Services
             var auxData = data.Where(u => u.CreatedOn.Month == actualDay.Month).ToList();
             var bloquesPercentage = CalculateCategoryPercentage(auxData, "BLOQUES", numberOfInvoicesMonthly);
             var adokingPercentage = CalculateCategoryPercentage(auxData, "ADOQUINES", numberOfInvoicesMonthly);
-            var grassMichiPercentage = CalculateCategoryPercentage(auxData, "BLOCKGRASS", numberOfInvoicesMonthly);
-            var enchapePercentage = CalculateCategoryPercentage(auxData, "ENCHAPE", numberOfInvoicesMonthly);
-            var aisladoresPercentage = CalculateCategoryPercentage(auxData, "AISLADOR", numberOfInvoicesMonthly);
-            var kingconcretoPercentage = CalculateCategoryPercentage(auxData, "KINGKONCRETO", numberOfInvoicesMonthly);
-            var topeAisladorPercentage = CalculateCategoryPercentage(auxData, "TOPE AISLADOR", numberOfInvoicesMonthly);
+            var grassMichiPercentage = CalculateCategoryPercentage(auxData, "BK-GRASS", numberOfInvoicesMonthly);
+            var enchapePercentage = CalculateCategoryPercentage(auxData, "ENCHAPES", numberOfInvoicesMonthly);
+            var aisladoresPercentage = CalculateCategoryPercentage(auxData, "AISLADORES", numberOfInvoicesMonthly);
+            var kingconcretoPercentage = CalculateCategoryPercentage(auxData, "LADRILLOS", numberOfInvoicesMonthly);
 
             return new
             {
@@ -639,7 +638,6 @@ namespace DEMO_SOLDS.APP.Services
                     Math.Round(enchapePercentage * 100, 2),
                     Math.Round(aisladoresPercentage * 100, 2),
                     Math.Round(kingconcretoPercentage * 100, 2),
-                    Math.Round(topeAisladorPercentage * 100, 2)
                 }
             };
         }
