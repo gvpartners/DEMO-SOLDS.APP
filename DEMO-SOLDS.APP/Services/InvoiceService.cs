@@ -103,6 +103,7 @@ namespace DEMO_SOLDS.APP.Services
                         UnitPiece = i.UnitPiece,
                         Contact = i.Contact,
                         UserId = i.UserId,
+                        ProductsList = JsonConvert.DeserializeObject<List<ProductModel>>(i.ProductsList),
                     })
                     .ToList();
 
