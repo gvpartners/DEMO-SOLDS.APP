@@ -104,6 +104,7 @@ namespace DEMO_SOLDS.APP.Services
                         Contact = i.Contact,
                         UserId = i.UserId,
                         ProductsList = JsonConvert.DeserializeObject<List<ProductModel>>(i.ProductsList),
+                        Reference= i.Reference
                     })
                     .ToList();
 
