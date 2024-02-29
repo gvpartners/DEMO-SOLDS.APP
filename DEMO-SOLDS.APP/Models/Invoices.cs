@@ -9,13 +9,13 @@ namespace DEMO_SOLDS.APP.Models
     {
         public string? Truck { get; set; }
         public string? CountTruck { get; set; }
-        public int TruckQuantity { get; set; }
-        public int TruckPrice { get; set; }
+        public decimal TruckQuantity { get; set; }
+        public decimal TruckPrice { get; set; }
     }
     public class ProductModel
     {
         public string? Product { get; set; }
-        public int Quantity { get; set; }
+        public decimal Quantity { get; set; }
         public decimal PriceUnit { get; set; }
         public decimal TotalPrice { get; set; }
     }
@@ -30,7 +30,7 @@ namespace DEMO_SOLDS.APP.Models
         public string? CreatedBy { get; set; }
         public string? SelectedCategory { get; set; }
         public List<string>? SelectedMeasures { get; set; }
-        public List<int>? MeasureQuantities { get; set; }
+        public List<decimal>? MeasureQuantities { get; set; }
         public string? DeliveryType { get; set; }
         public string? SelectedDistrict { get; set; }
         public int Truck9TN { get; set; }
@@ -47,7 +47,7 @@ namespace DEMO_SOLDS.APP.Models
         public decimal CostParihuela { get; set; }
         public decimal TotalPriceParihuela { get; set; }
         public string? Address { get; set; }
-        public long TotalOfPieces { get; set; }
+        public decimal TotalOfPieces { get; set; }
         public string? UnitPiece { get; set; }
         public string? Contact { get; set; }
         public Guid UserId { get; set; }
@@ -70,7 +70,7 @@ namespace DEMO_SOLDS.APP.Models
         public string? Email { get; set; }
         public string? SelectedCategory { get; set; }
         public List<string>? SelectedMeasures { get; set; }
-        public List<int>? MeasureQuantities { get; set; }
+        public List<decimal>? MeasureQuantities { get; set; }
         public string? DeliveryType { get; set; }
         public string? SelectedDistrict { get; set; }
         public int Truck9TN { get; set; }
@@ -95,7 +95,7 @@ namespace DEMO_SOLDS.APP.Models
         public decimal TotalPriceParihuela { get; set; }
         public string? Address { get; set; }
         public string? Employee { get; set; }
-        public long TotalOfPieces { get; set; }
+        public decimal TotalOfPieces { get; set; }
         public string? UnitPiece { get; set; }
         public string? Contact { get; set; }
         public Guid UserId { get; set; }
@@ -148,7 +148,7 @@ namespace DEMO_SOLDS.APP.Models
         public decimal TotalPriceParihuela { get; set; }
         public string? Address { get; set; }
         public string? Employee { get; set; }
-        public long TotalOfPieces { get; set; }
+        public decimal TotalOfPieces { get; set; }
         public string? UnitPiece { get; set; }
         public string? Contact { get; set; }
         public Guid UserId { get; set; }

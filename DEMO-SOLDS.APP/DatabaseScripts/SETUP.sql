@@ -81,7 +81,7 @@ CREATE TABLE [dbo].[Invoices](
 	[TotalPriceParihuela] [decimal](20, 4) NULL,
 	[Address] [nvarchar](max) NULL,
 	[Employee] [nvarchar](256) NULL,
-	[TotalOfPieces] [bigint] NULL,
+	[TotalOfPieces] [decimal](20, 4) NULL,
 	[UnitPiece] [nvarchar](10) NULL,
 	[Contact] [nvarchar](max) NULL,
 	[UserId] [uniqueidentifier] NOT NULL,
