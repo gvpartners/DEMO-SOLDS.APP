@@ -33,9 +33,9 @@ namespace DEMO_SOLDS.APP.Models
         public List<decimal>? MeasureQuantities { get; set; }
         public string? DeliveryType { get; set; }
         public string? SelectedDistrict { get; set; }
-        public int Truck9TN { get; set; }
-        public int Truck20TN { get; set; }
-        public int Truck32TN { get; set; }
+        public decimal Truck9TN { get; set; }
+        public decimal Truck20TN { get; set; }
+        public decimal Truck32TN { get; set; }
         public List<ProductModel> ?ProductsList { get; set; }
         public List<TruckModel>? FleteList { get; set; }
         public decimal TotalWeight { get; set; }
@@ -43,7 +43,7 @@ namespace DEMO_SOLDS.APP.Models
         public decimal IgvRate { get; set; }
         public decimal TotalInvoice { get; set; }
         public string? IsParihuelaNeeded { get; set; }
-        public int CantParihuela { get; set; }
+        public decimal CantParihuela { get; set; }
         public decimal CostParihuela { get; set; }
         public decimal TotalPriceParihuela { get; set; }
         public string? Address { get; set; }
@@ -73,9 +73,9 @@ namespace DEMO_SOLDS.APP.Models
         public List<decimal>? MeasureQuantities { get; set; }
         public string? DeliveryType { get; set; }
         public string? SelectedDistrict { get; set; }
-        public int Truck9TN { get; set; }
-        public int Truck20TN { get; set; }
-        public int Truck32TN { get; set; }
+        public decimal Truck9TN { get; set; }
+        public decimal Truck20TN { get; set; }
+        public decimal Truck32TN { get; set; }
         public List<ProductModel>? ProductsList { get; set; }
         public List<TruckModel>? FleteList { get; set; }
         public decimal TotalWeight { get; set; }
@@ -90,7 +90,7 @@ namespace DEMO_SOLDS.APP.Models
         public string? StatusName { get; set; }
         public bool IsDeleted { get; set; }
         public string? IsParihuelaNeeded { get; set; }
-        public int CantParihuela { get; set; }
+        public decimal CantParihuela { get; set; }
         public decimal CostParihuela { get; set; }
         public decimal TotalPriceParihuela { get; set; }
         public string? Address { get; set; }
@@ -126,9 +126,9 @@ namespace DEMO_SOLDS.APP.Models
         public string? MeasureQuantities { get; set; }
         public string? DeliveryType { get; set; }
         public string? SelectedDistrict { get; set; }
-        public int Truck9TN { get; set; }
-        public int Truck20TN { get; set; }
-        public int Truck32TN { get; set; }
+        public decimal Truck9TN { get; set; }
+        public decimal Truck20TN { get; set; }
+        public decimal Truck32TN { get; set; }
         public string? ProductsList { get; set; }
         public string? FleteList { get; set; }
         public decimal TotalWeight { get; set; }
@@ -143,7 +143,7 @@ namespace DEMO_SOLDS.APP.Models
         public string? StatusName { get; set; }
         public bool IsDeleted { get; set; }
         public string? IsParihuelaNeeded { get; set; }
-        public int CantParihuela { get; set; }
+        public decimal CantParihuela { get; set; }
         public decimal CostParihuela { get; set; }
         public decimal TotalPriceParihuela { get; set; }
         public string? Address { get; set; }
