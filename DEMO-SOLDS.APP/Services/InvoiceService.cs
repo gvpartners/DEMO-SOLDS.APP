@@ -623,7 +623,7 @@ namespace DEMO_SOLDS.APP.Services
 
             return new
             {
-                ActualDay = actualDay,
+                ActualDay = actualDay, 
                 MonthGoal = monthGoal,
                 NumberOfInvoicesToday = numberOfInvoicesToday,
                 NumberOfInvoicesMonthly = numberOfInvoicesMonthly,
