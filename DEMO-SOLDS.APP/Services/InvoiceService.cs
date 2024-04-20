@@ -611,7 +611,7 @@ namespace DEMO_SOLDS.APP.Services
                 .Where(u => u.CreatedOn.Date == actualDay)
                 .Sum(a => a.TotalInvoice);
 
-            decimal totalMonth = monthlyPrices.Sum();
+            decimal totalMonth = monthlyPrices[actualDay.Month - 1];
 
             var auxData = data.Where(u => u.CreatedOn.Month == actualDay.Month).ToList();
             var bloquesPercentage = CalculateCategoryPercentage(auxData, "BLOQUES", numberOfInvoicesMonthly);
