@@ -112,7 +112,7 @@ namespace DEMO_SOLDS.APP.Controllers
                 jwt.Issuer,
                 jwt.Audience,
                 claims,
-                expires: DateTime.Now.AddHours(3),
+                expires: DateTime.Now.AddHours(8),
                 signingCredentials: signingCredentials
             );
 
