@@ -262,14 +262,14 @@ namespace DEMO_SOLDS.APP.Controllers
             });
         }
 
-        [HttpPost("DuplicateInvoice/{id}")]
-        public async Task<IActionResult> DuplicateInvoice(Guid id)
+        [HttpPost("DuplicateInvoice/{id}/{userId}")]
+        public async Task<IActionResult> DuplicateInvoice(Guid id,Guid userId)
         {
             try
             {
                 await Task.Run(() =>
                 {
-                    _invoiceService.DuplicateInvoice(id);
+                    _invoiceService.DuplicateInvoice(id,userId);
                 });
 
                 return Ok();
