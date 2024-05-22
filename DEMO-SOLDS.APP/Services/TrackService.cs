@@ -218,9 +218,9 @@ namespace DEMO_SOLDS.APP.Services
             {
                 var trackList = _context.Track
                     .Where(u => !u.IsDeleted &&
-                                 u.CreatedOn.Date >= obj.StartDate.Value.Date &&
-                                 u.CreatedOn.Date <= obj.EndDate.Value.Date)
-                    .OrderByDescending(u => u.CreatedOn)
+                                 u.DeliveryDate.Date >= obj.StartDate.Value.Date &&
+                                 u.DeliveryDate.Date <= obj.EndDate.Value.Date)
+                    .OrderByDescending(u => u.DeliveryDate)
                     .Select(i => new AuxTrackModel
                     {
                         TrackCode = i.TrackCode,
