@@ -58,9 +58,10 @@ namespace DEMO_SOLDS.APP.Controllers
                         "CLIENTE",
                         "RUC/DNI",
                         "CATEGORIA",
+                        "DESCRIPCIÓN DE PRODUCTO",
                         "CANTIDAD",
                         "U.M",
-                        "FECHA DE PEDIDO",
+                        "FECHA DE CREACIÓN",
                         "FECHA DE ENTREGA",
                         "TIPO DE ENTREGA",
                         "CONTACTO",
@@ -77,35 +78,45 @@ namespace DEMO_SOLDS.APP.Controllers
                         worksheet.Cell(2, i + 2).Style.Border.OutsideBorderColor = XLColor.Black;
                     }
 
-                    worksheet.Range("B2:N2").SetAutoFilter();
+                    worksheet.Range("B2:O2").SetAutoFilter();
 
                     int row = 3;
                     foreach (var track in data)
                     {
-                        worksheet.Cell(row, 2).Value = "PD-" + userIdToPrefixMap[track.UserId].Prefix + track?.TrackCode?.PadLeft(6, '0');
-                        worksheet.Cell(row, 3).Value = track?.IdentificationInfo;
-                        worksheet.Cell(row, 4).Value = track?.DocumentInfo;
-                        worksheet.Cell(row, 5).Value = track?.SelectedCategory;
-                        worksheet.Cell(row, 6).Value = track?.TotalOfPieces;
-                        worksheet.Cell(row, 7).Value = track?.UnitPiece;
-                        // Formatear la celda como moneda en soles
-                        worksheet.Cell(row, 8).Value = track?.CreatedOn?.ToString("yyyy-MM-dd HH:mm:ss");
-                        worksheet.Cell(row, 9).Value = track?.DeliveryDate.ToString("yyyy-MM-dd");
-                        worksheet.Cell(row, 10).Value = track?.DeliveryType;
-                        worksheet.Cell(row, 11).Value = track?.Contact;
-                        worksheet.Cell(row, 12).Value = track?.Telephone;
-                        worksheet.Cell(row, 13).Value = userIdToPrefixMap[track.UserId].Name + " " + userIdToPrefixMap[track.UserId].FirstLastName;
-                        worksheet.Cell(row, 14).Value = track?.StatusName;
-
-                        for (int i = 2; i <= 14; i++)
+                        int count = 0;
+                        if(track.SelectedMeasures != null && track.SelectedMeasures.Count > 0 &&
+                            track.MeasureQuantities != null && track.MeasureQuantities.Count > 0)
                         {
-                            worksheet.Cell(row, i).Style.Border.OutsideBorder = XLBorderStyleValues.Thin;
-                            worksheet.Cell(row, i).Style.Border.OutsideBorderColor = XLColor.Black;
-                            worksheet.Cell(row, i).Style.Alignment.Horizontal = XLAlignmentHorizontalValues.Left;
-                            worksheet.Column(i).AdjustToContents();
-                        }
+                            foreach(var product in track.SelectedMeasures)
+                            {
+                                worksheet.Cell(row, 2).Value = "PD-" + userIdToPrefixMap[track.UserId].Prefix + track?.TrackCode?.PadLeft(6, '0');
+                                worksheet.Cell(row, 3).Value = track?.IdentificationInfo;
+                                worksheet.Cell(row, 4).Value = track?.DocumentInfo;
+                                worksheet.Cell(row, 5).Value = track?.SelectedCategory;
+                                worksheet.Cell(row, 6).Value = product;
+                                worksheet.Cell(row, 7).Value = track.MeasureQuantities[count];
+                                worksheet.Cell(row, 8).Value = track?.UnitPiece;
+                                // Formatear la celda como moneda en soles
+                                worksheet.Cell(row, 9).Value = track?.CreatedOn?.ToString("yyyy-MM-dd HH:mm:ss");
+                                worksheet.Cell(row, 10).Value = track?.DeliveryDate.ToString("yyyy-MM-dd");
+                                worksheet.Cell(row, 11).Value = track?.DeliveryType;
+                                worksheet.Cell(row, 12).Value = track?.Contact;
+                                worksheet.Cell(row, 13).Value = track?.Telephone;
+                                worksheet.Cell(row, 14).Value = userIdToPrefixMap[track.UserId].Name + " " + userIdToPrefixMap[track.UserId].FirstLastName;
+                                worksheet.Cell(row, 15).Value = track?.StatusName;
 
-                        row++;
+                                for (int i = 2; i <= 15; i++)
+                                {
+                                    worksheet.Cell(row, i).Style.Border.OutsideBorder = XLBorderStyleValues.Thin;
+                                    worksheet.Cell(row, i).Style.Border.OutsideBorderColor = XLColor.Black;
+                                    worksheet.Cell(row, i).Style.Alignment.Horizontal = XLAlignmentHorizontalValues.Left;
+                                    worksheet.Column(i).AdjustToContents();
+                                }
+                                count++;
+                                row++;
+                            }
+                        }
+                        
 
                     }
 

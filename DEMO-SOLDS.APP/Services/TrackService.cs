@@ -228,6 +228,7 @@ namespace DEMO_SOLDS.APP.Services
                         DocumentInfo = i.DocumentInfo,
                         IdentificationInfo = i.IdentificationInfo,
                         Telephone = i.Telephone,
+                        DeliveryDate= i.DeliveryDate,
                         SelectedCategory = i.SelectedCategory,
                         DeliveryType = i.DeliveryType,
                         TotalWeight = i.TotalWeight,
@@ -240,6 +241,8 @@ namespace DEMO_SOLDS.APP.Services
                         UnitPiece = i.UnitPiece,
                         Contact = i.Contact,
                         UserId = i.UserId,
+                        SelectedMeasures = JsonConvert.DeserializeObject<List<string>>(i.SelectedMeasures),
+                        MeasureQuantities = JsonConvert.DeserializeObject<List<decimal>>(i.MeasureQuantities)
                     })
                     .ToList();
 
