@@ -13,5 +13,6 @@ namespace R2.DEMO.APP.Context
         public DbSet<Users> AspNetUsers { get; set; }
         public DbSet<Invoices> Invoices { get; set; }
         public DbSet<Customers> Customers { get; set; }
+        public DbSet<Tracks> Track { get; set; }
     }
 }

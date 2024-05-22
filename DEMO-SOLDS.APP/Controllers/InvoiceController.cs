@@ -58,15 +58,12 @@ namespace DEMO_SOLDS.APP.Controllers
                         "# COT",
                         "CLIENTE",
                         "RUC/DNI",
-                        "CATEGORIA",
-                        "PRODUCTO",
+                        "DESCRIPCIÓN DE PRODUCTO",
                         "CANTIDAD",
                         "U.M",
                         "TOTAL S/",
-                        "ENTREGA",
                         "DIRECCIÓN",
                         "DISTRITO",
-                        "REFERENCIA",
                         "CONTACTO",
                         "TELEFONO",
                         "EJECUTIVO",
@@ -81,7 +78,7 @@ namespace DEMO_SOLDS.APP.Controllers
                         worksheet.Cell(2, i + 2).Style.Border.OutsideBorderColor = XLColor.Black;
                     }
 
-                    worksheet.Range("B2:R2").SetAutoFilter();
+                    worksheet.Range("B2:O2").SetAutoFilter();
 
                     int row = 3;
                     foreach (var invoice in data)
@@ -90,27 +87,27 @@ namespace DEMO_SOLDS.APP.Controllers
                         {
                             foreach (var product in invoice.ProductsList)
                             {
-                                worksheet.Cell(row, 2).Value = invoice.CreatedOn.ToString("yyyy-MM-dd HH:mm:ss");
+                                worksheet.Cell(row, 2).Value = invoice.CreatedOn.ToString("yyyy-MM-dd");
                                 worksheet.Cell(row, 3).Value = "COT-" + userIdToPrefixMap[invoice.UserId].Prefix + invoice?.InvoiceCode?.PadLeft(6, '0');
                                 worksheet.Cell(row, 4).Value = invoice?.IdentificationInfo;
                                 worksheet.Cell(row, 5).Value = invoice?.DocumentInfo;
-                                worksheet.Cell(row, 6).Value = invoice?.SelectedCategory;
-                                worksheet.Cell(row, 7).Value = product?.Product;
-                                worksheet.Cell(row, 8).Value = product?.Quantity;
-                                worksheet.Cell(row, 9).Value = invoice?.UnitPiece;
+                                //worksheet.Cell(row, 6).Value = invoice?.SelectedCategory;
+                                worksheet.Cell(row, 6).Value = product?.Product;
+                                worksheet.Cell(row, 7).Value = product?.Quantity;
+                                worksheet.Cell(row, 8).Value = invoice?.UnitPiece;
                                 // Formatear la celda como moneda en soles
-                                worksheet.Cell(row, 10).Style.NumberFormat.Format = "\"S/\" #,##0.00";
-                                worksheet.Cell(row, 10).Value = product?.TotalPrice??0.0m;
-                                worksheet.Cell(row, 11).Value = invoice?.DeliveryType;
-                                worksheet.Cell(row, 12).Value = invoice?.Address;
-                                worksheet.Cell(row, 13).Value = invoice?.SelectedDistrict;
-                                worksheet.Cell(row, 14).Value = invoice?.Reference;
-                                worksheet.Cell(row, 15).Value = invoice?.Contact;
-                                worksheet.Cell(row, 16).Value = invoice?.Telephone;
-                                worksheet.Cell(row, 17).Value = userIdToPrefixMap[invoice.UserId].Name + " " + userIdToPrefixMap[invoice.UserId].FirstLastName;
-                                worksheet.Cell(row, 18).Value = invoice?.StatusName;
+                                worksheet.Cell(row, 9).Style.NumberFormat.Format = "\"S/\" #,##0.00";
+                                worksheet.Cell(row, 9).Value = product?.TotalPrice??0.0m;
+                                //worksheet.Cell(row, 11).Value = invoice?.DeliveryType;
+                                worksheet.Cell(row, 10).Value = invoice?.Address;
+                                worksheet.Cell(row, 11).Value = invoice?.SelectedDistrict;
+                                //worksheet.Cell(row, 14).Value = invoice?.Reference;
+                                worksheet.Cell(row, 12).Value = invoice?.Contact;
+                                worksheet.Cell(row, 13).Value = invoice?.Telephone;
+                                worksheet.Cell(row, 14).Value = userIdToPrefixMap[invoice.UserId].Name + " " + userIdToPrefixMap[invoice.UserId].FirstLastName;
+                                worksheet.Cell(row, 15).Value = invoice?.StatusName;
 
-                                for (int i = 2; i <= 18; i++)
+                                for (int i = 2; i <= 15; i++)
                                 {
                                     worksheet.Cell(row, i).Style.Border.OutsideBorder = XLBorderStyleValues.Thin;
                                     worksheet.Cell(row, i).Style.Border.OutsideBorderColor = XLColor.Black;
