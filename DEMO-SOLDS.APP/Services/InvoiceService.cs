@@ -12,6 +12,7 @@ using DocumentFormat.OpenXml.Math;
 using DocumentFormat.OpenXml.Bibliography;
 using DocumentFormat.OpenXml.Wordprocessing;
 using Microsoft.IdentityModel.Tokens;
+using Microsoft.AspNetCore.Mvc.RazorPages;
 
 namespace DEMO_SOLDS.APP.Services
 {
@@ -120,7 +121,7 @@ namespace DEMO_SOLDS.APP.Services
 
             var userIdToPrefixMap = _context.AspNetUsers
                 .ToDictionary(u => u.Id, u => new { Prefix = u.Prefix, Name = u.Name, FirstLastName = u.FirstLastName });
-            var query = _context.Invoices.Where(i => i.IsDeleted != true);
+            var query = _context.Invoices.Where(i => i.IsDeleted != true && i.StatusOrder != 0);
 
             if (pag.Filters != null)
             {
@@ -516,6 +517,8 @@ namespace DEMO_SOLDS.APP.Services
                 invoice.IgvRate = obj.IgvRate;
                 invoice.TotalInvoice = obj.TotalInvoice;
                 invoice.LastUpdatedBy = obj.CreatedBy;
+                invoice.StatusOrder = 1;
+                invoice.StatusName = "En progreso";
                 invoice.LastUpdatedOn = currentTimePeru;
                 invoice.IsParihuelaNeeded = obj.IsParihuelaNeeded;
                 invoice.CantParihuela = obj.CantParihuela;

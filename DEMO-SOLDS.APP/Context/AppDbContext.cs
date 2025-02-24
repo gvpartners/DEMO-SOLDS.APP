@@ -14,5 +14,6 @@ namespace R2.DEMO.APP.Context
         public DbSet<Invoices> Invoices { get; set; }
         public DbSet<Customers> Customers { get; set; }
         public DbSet<Tracks> Track { get; set; }
+        public DbSet<Visit> Visit { get; set; }
     }
 }

@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "dgSpecHash": "uz9kvQ60hnu5H0tF/pk1jYGRgGanQXF6uror7sYtRtCGJVFlDNklJb2YnEPVi+yOb90XDjeVVleQVjkug8nVnw==",
+  "dgSpecHash": "UxSpuyK9TGs=",
   "success": true,
   "projectFilePath": "D:\\repositories\\DEMO-SOLDS.APP\\DEMO-SOLDS.APP\\DEMO-SOLDS.APP.csproj",
   "expectedPackageFiles": [
@@ -152,6 +152,16 @@
     "C:\\Users\\sgvro\\.nuget\\packages\\xlparser\\1.5.2\\xlparser.1.5.2.nupkg.sha512"
   ],
   "logs": [
+    {
+      "code": "NU1902",
+      "level": "Warning",
+      "warningLevel": 1,
+      "message": "El paquete \"System.IdentityModel.Tokens.Jwt\" 6.32.3 tiene una vulnerabilidad de gravedad moderada conocida, https://github.com/advisories/GHSA-59j7-ghrg-fj52",
+      "libraryId": "System.IdentityModel.Tokens.Jwt",
+      "targetGraphs": [
+        "net6.0"
+      ]
+    },
     {
       "code": "NU1701",
       "level": "Warning",

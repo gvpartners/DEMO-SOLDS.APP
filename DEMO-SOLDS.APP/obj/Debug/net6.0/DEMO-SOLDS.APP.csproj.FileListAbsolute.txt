@@ -79,7 +79,6 @@ D:\repositories\DEMO-SOLDS.APP\DEMO-SOLDS.APP\obj\Debug\net6.0\staticwebassets.p
 D:\repositories\DEMO-SOLDS.APP\DEMO-SOLDS.APP\obj\Debug\net6.0\staticwebassets.build.json
 D:\repositories\DEMO-SOLDS.APP\DEMO-SOLDS.APP\obj\Debug\net6.0\staticwebassets.development.json
 D:\repositories\DEMO-SOLDS.APP\DEMO-SOLDS.APP\obj\Debug\net6.0\scopedcss\bundle\DEMO-SOLDS.APP.styles.css
-D:\repositories\DEMO-SOLDS.APP\DEMO-SOLDS.APP\obj\Debug\net6.0\DEMO-SOLDS.APP.csproj.CopyComplete
 D:\repositories\DEMO-SOLDS.APP\DEMO-SOLDS.APP\obj\Debug\net6.0\DEMO-SOLDS.APP.dll
 D:\repositories\DEMO-SOLDS.APP\DEMO-SOLDS.APP\obj\Debug\net6.0\refint\DEMO-SOLDS.APP.dll
 D:\repositories\DEMO-SOLDS.APP\DEMO-SOLDS.APP\obj\Debug\net6.0\DEMO-SOLDS.APP.pdb
@@ -98,3 +97,5 @@ D:\repositories\DEMO-SOLDS.APP\DEMO-SOLDS.APP\bin\Debug\net6.0\SixLabors.Fonts.d
 D:\repositories\DEMO-SOLDS.APP\DEMO-SOLDS.APP\bin\Debug\net6.0\System.IO.Packaging.dll
 D:\repositories\DEMO-SOLDS.APP\DEMO-SOLDS.APP\bin\Debug\net6.0\XLParser.dll
 D:\repositories\DEMO-SOLDS.APP\DEMO-SOLDS.APP\bin\Debug\net6.0\AspNetCoreRateLimit.dll
+D:\repositories\DEMO-SOLDS.APP\DEMO-SOLDS.APP\obj\Debug\net6.0\DEMO-SOLDS.APP.sourcelink.json
+D:\repositories\DEMO-SOLDS.APP\DEMO-SOLDS.APP\obj\Debug\net6.0\DEMO-SOL.A6EE50C3.Up2Date
