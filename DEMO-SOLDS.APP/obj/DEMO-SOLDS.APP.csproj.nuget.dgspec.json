@@ -1,20 +1,23 @@
 {
   "format": 1,
   "restore": {
-    "D:\\repositories\\DEMO-SOLDS.APP\\DEMO-SOLDS.APP\\DEMO-SOLDS.APP.csproj": {}
+    "C:\\HOPE\\DEMO-SOLDS.APP\\DEMO-SOLDS.APP\\DEMO-SOLDS.APP.csproj": {}
   },
   "projects": {
-    "D:\\repositories\\DEMO-SOLDS.APP\\DEMO-SOLDS.APP\\DEMO-SOLDS.APP.csproj": {
+    "C:\\HOPE\\DEMO-SOLDS.APP\\DEMO-SOLDS.APP\\DEMO-SOLDS.APP.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "D:\\repositories\\DEMO-SOLDS.APP\\DEMO-SOLDS.APP\\DEMO-SOLDS.APP.csproj",
+        "projectUniqueName": "C:\\HOPE\\DEMO-SOLDS.APP\\DEMO-SOLDS.APP\\DEMO-SOLDS.APP.csproj",
         "projectName": "DEMO-SOLDS.APP",
-        "projectPath": "D:\\repositories\\DEMO-SOLDS.APP\\DEMO-SOLDS.APP\\DEMO-SOLDS.APP.csproj",
-        "packagesPath": "C:\\Users\\sgvro\\.nuget\\packages\\",
-        "outputPath": "D:\\repositories\\DEMO-SOLDS.APP\\DEMO-SOLDS.APP\\obj\\",
+        "projectPath": "C:\\HOPE\\DEMO-SOLDS.APP\\DEMO-SOLDS.APP\\DEMO-SOLDS.APP.csproj",
+        "packagesPath": "C:\\Users\\sebastian.garcia\\.nuget\\packages\\",
+        "outputPath": "C:\\HOPE\\DEMO-SOLDS.APP\\DEMO-SOLDS.APP\\obj\\",
         "projectStyle": "PackageReference",
+        "fallbackFolders": [
+          "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
+        ],
         "configFilePaths": [
-          "C:\\Users\\sgvro\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\sebastian.garcia\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
@@ -22,6 +25,7 @@
         ],
         "sources": {
           "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
+          "C:\\Program Files\\dotnet\\library-packs": {},
           "https://api.nuget.org/v3/index.json": {}
         },
         "frameworks": {
@@ -115,7 +119,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.401\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.400\\RuntimeIdentifierGraph.json"
         }
       }
     }
